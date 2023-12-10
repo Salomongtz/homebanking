@@ -20,9 +20,9 @@ const app = createApp({
     methods: {
 
         loadData() {
-            axios("clients")
+            axios("/api/clients")
                 .then(response => {
-                    (this.clients = response.data._embedded.clients)
+                    (this.clients = response.data)
                     console.log(this.clients)
                 })
                 .catch(error => console.log(error))
