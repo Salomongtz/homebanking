@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Accounts - Vertex Vanguard</title>
+    <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body class=" text-white flex flex-col min-h-screen bg-[#21083b]">
+    <div id="app" class="flex grow flex-col">
+        <!-- <header class="text-3xl  font-bold bg-slate-500 flex gap-6 justify-center">
+            <a href="">Accounts</a>
+            <a href="">Cards</a>
+            <a href="">Loans</a>
+            <a href="">Transactions</a>
+        </header>
+         -->
+        <header class="text-[#21083b] p-4">
+            <nav class="flex flex-col sm:flex-row justify-between items-center">
+                <div>
+                    <h1 class="text-xl text-[#17ead9] font-bold">Welcome, {{client.firstName}}!</h1>
+                </div>
+                <div class="mt-4 sm:mt-0">
+                    <button
+                        class="mr-2 mb-2 sm:mb-0 bg-purple-600 hover:bg-purple-600  font-bold py-2 px-4 rounded">Accounts</button>
+                    <button
+                        class="mr-2 mb-2 sm:mb-0 bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Cards</button>
+                    <button
+                        class="mr-2 mb-2 sm:mb-0 bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Loans</button>
+                    <button
+                        class="bg-[#17ead9] hover:bg-[#a35feb]  font-bold py-2 px-4 rounded">Transactions</button>
+                </div>
+            </nav>
+        </header>
+        <main class="p-4 flex flex-col grow gap-4 items-center">
+            <h1 class="text-3xl text-[#17ead9] font-bold">Accounts</h1>
+            <div class="flex w-full justify-center gap-4">
+                <template v-if="accounts.length>0" v-for="account in accounts">
+                    <div class="bg-[#17ead9] rounded-lg w-1/5 shadow-[0_35px_60px_-15px_rgba(23,234,217,0.1)] p-4">
+                        <h3 class="text-lg font-bold mb-2"></h3>
+                        <div class="flex flex-col">
+                            <div class="mb-2 flex justify-between">
+                                <span class="font-bold text-[#21083b]">Account Number: </span>
+                                <span class="text-[#21083b] font-bold">{{account.number}}</span>
+                            </div>
+                            <div class="mb-2 flex justify-between">
+                                <span class="font-bold text-[#21083b]">Balance: </span>
+                                <span class="text-[#21083b] font-bold">{{account.balance.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</span>
+                            </div>
+                            <div class=" flex justify-between">
+                                <span class="font-bold text-[#21083b]">Creation Date: </span>
+                                <span class="text-[#21083b] font-bold">{{account.creationDate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <div class=" p-4 text-center">
+                <img src="../images/banner.png" alt="Bank App Banner" class="mx-auto my-4 max-w-full h-96">
+                <h1 class="text-2xl">"Where Innovation Meets Banking Brilliance."</h1>
+            </div>
+        </main>
+    </div>
+    <footer class="text-[#17ead9] p-4 text-center">
+        <div>
+            <h3 class="text-lg font-bold">2023 - Vertex Vanguard Bank</h3>
+        </div>
+        <div class="mt-4">
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="mr-2">
+                Instagram
+            </a>
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="mr-2">
+                Facebook
+            </a>
+            <a href="https://www.whatsapp.com" target="_blank" rel="noopener noreferrer" class="mr-2">
+                WhatsApp
+            </a>
+    </footer>
+    <script src=" ./accounts.js">
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="../../tailwind.config.js"></script>
+</body>
+
+</html>
