@@ -41,10 +41,10 @@ public class HomebankingApplication {
             accountRepository.save(account2);
             accountRepository.save(account3);
 
-            Transaction t1 = new Transaction(TransactionType.DEBIT, 200, LocalDate.now(), "Regalo para sobrino.");
+            Transaction t1 = new Transaction(TransactionType.DEBIT, -200, LocalDate.now(), "Regalo para sobrino.");
             Transaction t2 = new Transaction(TransactionType.CREDIT, 2000, LocalDate.now(), "Boda Antonio.");
             Transaction t3 = new Transaction(TransactionType.CREDIT, 900, LocalDate.now(), "Fiesta Melbita.");
-            Transaction t4 = new Transaction(TransactionType.DEBIT, 1300, LocalDate.now(), "Seguro Auto.");
+            Transaction t4 = new Transaction(TransactionType.DEBIT, -1300, LocalDate.now(), "Seguro Auto.");
             Transaction t5 = new Transaction(TransactionType.CREDIT, 499.99, LocalDate.now(), "PS5");
 
             account1.addTransaction(t1);
