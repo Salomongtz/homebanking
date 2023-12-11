@@ -11,17 +11,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/accounts")
 public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
-    @RequestMapping("/accounts")
+    @RequestMapping()
     public List<AccountDTO> getAccounts() {
         return accountRepository.findAll().stream().map(AccountDTO::new).collect(Collectors.toList());
     }
 
-    @RequestMapping("/accounts/{id}")
+    @RequestMapping("{id}")
     public AccountDTO findClient(@PathVariable Long id) {
         return accountRepository.findById(id).map(AccountDTO::new).orElse(null);
     }
