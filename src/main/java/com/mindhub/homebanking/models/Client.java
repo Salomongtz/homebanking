@@ -28,7 +28,6 @@ public class Client {
     }
 
     public Client() {
-
     }
 
     public String getFirstName() {

@@ -21,25 +21,24 @@
         <header class="text-[#21083b] p-4">
             <nav class="flex flex-col sm:flex-row justify-between items-center">
                 <div>
-                    <h1 class="text-xl text-[#17ead9] font-bold">Welcome, {{client.firstName}}!</h1>
+                    <h1 class="text-xl text-[#17ead9] font-bold">Movements</h1>
                 </div>
                 <div class="mt-4 sm:mt-0">
                     <a href="./accounts.html"
                         class="mr-2 mb-2 sm:mb-0 bg-purple-600 hover:bg-purple-600  font-bold py-2 px-4 rounded">Accounts</a>
-                    <a href="#"
-                        class="mr-2 mb-2 sm:mb-0 bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Cards</a>
-                    <a href="#"
-                        class="mr-2 mb-2 sm:mb-0 bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Loans</a>
-                    <a href="#"
-                        class="bg-[#17ead9] hover:bg-[#a35feb]  font-bold py-2 px-4 rounded">Transactions</a>
+                    <a href=""
+                        class="mr-2 mb-2 sm:mb-0 bg-purple-500 hover:bg-purple-600  font-bold py-2 px-4 rounded">Cards</a>
+                    <a href=""
+                        class="mr-2 mb-2 sm:mb-0 bg-purple-500 hover:bg-purple-600  font-bold py-2 px-4 rounded">Loans</a>
+                    <a href="" class="bg-purple-500 hover:bg-[#a35feb]  font-bold py-2 px-4 rounded">Transactions</a>
                 </div>
             </nav>
         </header>
         <main class="p-4 flex flex-col grow gap-4 items-center">
-            <h1 class="text-3xl text-[#17ead9] font-bold">Accounts</h1>
-            <div class="flex w-full justify-center gap-4">
-                <template v-if="accounts.length>0" v-for="account in accounts">
-                    <a class=" md:w-1/5" v-bind:href="'./account.html?id='+account.id">
+            <h1 class="text-3xl text-tealbg-purple-500 font-bold">{{account.number}}</h1>
+            <div class="flex flex-col w-full justify-center gap-4">
+                <template v-if="account.balance">
+                    <a class="" v-bind:href="'./account.html?id='+account.id">
                         <div class="bg-[#17ead9] rounded-lg shadow-[0_35px_60px_-15px_rgba(23,234,217,0.1)] p-4">
                             <h3 class="text-lg font-bold mb-2"></h3>
                             <div class="flex flex-col">
@@ -49,7 +48,8 @@
                                 </div>
                                 <div class="mb-2 flex justify-between">
                                     <span class="font-bold text-[#21083b]">Balance: </span>
-                                    <span class="text-[#21083b] font-bold">{{account.balance.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</span>
+                                    <span class="text-[#21083b] font-bold">{{account.balance.toLocaleString('en-US', {
+                                        style: 'currency', currency: 'USD' })}}</span>
                                 </div>
                                 <div class=" flex justify-between">
                                     <span class="font-bold text-[#21083b]">Creation Date: </span>
@@ -59,6 +59,27 @@
                         </div>
                     </a>
                 </template>
+                <template v-if="transactions.length>0">
+                  <table class="min-w-full bg-[#17ead9] rounded-lg text-[#21083b]">
+                    <thead>
+                      <tr>
+                        <th class="rounded-tl-lg py-2 px-4 bg-purple-500 text-white">Type</th>
+                        <th class="py-2 px-4 bg-purple-500 text-white">Amount</th>
+                        <th class="py-2 px-4 bg-purple-500 text-white">Date</th>
+                        <th class="rounded-tr-lg py-2 px-4 bg-purple-500 text-white">Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="transaction in transactions">
+                        <td v-if="transaction.type=='CREDIT'" class="py-2 px-4 text-green-600">{{transaction.type}}</td>
+                        <td v-if="transaction.type=='DEBIT'" class="py-2 px-4 text-red-600">{{transaction.type}}</td>
+                        <td class="py-2 px-4">{{transaction.amount}}</td>
+                        <td class="py-2 px-4">{{transaction.date}}</td>
+                        <td class="py-2 px-4">{{transaction.description}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </template>
             </div>
             <div class=" p-4 text-center">
                 <img src="../images/banner.png" alt="Bank App Banner" class="mx-auto my-4 max-w-full h-96">
@@ -66,7 +87,7 @@
             </div>
         </main>
     </div>
-    <footer class="text-[#17ead9] p-4 text-center">
+    <footer class="text-tealbg-purple-500 p-4 text-center">
         <div>
             <h3 class="text-lg font-bold">2023 - Vertex Vanguard Bank</h3>
         </div>
@@ -81,7 +102,7 @@
                 WhatsApp
             </a>
     </footer>
-    <script src=" ./accounts.js">
+    <script src=" ./account.js">
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="../../tailwind.config.js"></script>

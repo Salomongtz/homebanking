@@ -36,6 +36,10 @@ public class Transaction {
         this.type = type;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public double getAmount() {
         return amount;
     }
@@ -58,6 +62,14 @@ public class Transaction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     @Override
