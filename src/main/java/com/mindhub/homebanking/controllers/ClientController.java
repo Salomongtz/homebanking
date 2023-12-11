@@ -1,8 +1,6 @@
 package com.mindhub.homebanking.controllers;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mindhub.homebanking.dto.ClientDTO;
-import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
