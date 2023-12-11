@@ -20,6 +20,7 @@ const app = createApp({
     methods: {
 
         loadData() {
+            console.log("LoadData");
             axios("/api/clients")
                 .then(response => {
                     (this.clients = response.data)
