@@ -60,25 +60,31 @@
                     </a>
                 </template>
                 <template v-if="transactions.length>0">
-                  <table class="min-w-full bg-[#17ead9] rounded-lg text-[#21083b]">
-                    <thead>
-                      <tr>
-                        <th class="rounded-tl-lg py-2 px-4 bg-purple-500 text-white">Type</th>
-                        <th class="py-2 px-4 bg-purple-500 text-white">Amount</th>
-                        <th class="py-2 px-4 bg-purple-500 text-white">Date</th>
-                        <th class="rounded-tr-lg py-2 px-4 bg-purple-500 text-white">Description</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="transaction in transactions">
-                        <td v-if="transaction.type=='CREDIT'" class="py-2 px-4 text-green-600">{{transaction.type}}</td>
-                        <td v-if="transaction.type=='DEBIT'" class="py-2 px-4 text-red-600">{{transaction.type}}</td>
-                        <td class="py-2 px-4">{{transaction.amount}}</td>
-                        <td class="py-2 px-4">{{transaction.date}}</td>
-                        <td class="py-2 px-4">{{transaction.description}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                    <table class="min-w-full bg-[#17ead9] rounded-lg text-[#21083b]">
+                        <thead>
+                            <tr>
+                                <th class="rounded-tl-lg py-2 px-4 bg-purple-500 text-white">Type</th>
+                                <th class="py-2 px-4 bg-purple-500 text-white">Amount</th>
+                                <th class="py-2 px-4 bg-purple-500 text-white">Date</th>
+                                <th class="rounded-tr-lg py-2 px-4 bg-purple-500 text-white">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="transaction in transactions">
+                                <td v-if="transaction.type=='CREDIT'" class="py-2 px-4 text-green-600">
+                                    {{transaction.type}}</td>
+                                <td v-if="transaction.type=='DEBIT'" class="py-2 px-4 text-red-600">{{transaction.type}}
+                                </td>
+                                <td class="py-2 px-4">
+                                    {{Intl.NumberFormat('en-US',
+                                    {style: 'currency',
+                                    currency: 'USD'}).
+                                    format(transaction.amount)}}</td>
+                                <td class="py-2 px-4">{{transaction.date}}</td>
+                                <td class="py-2 px-4">{{transaction.description}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </template>
             </div>
             <div class=" p-4 text-center">
