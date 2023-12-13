@@ -30,12 +30,13 @@
                         class="mr-2 mb-2  bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Cards</a>
                     <a href="#"
                         class="mr-2 mb-2  bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Loans</a>
-                    <a href="#" class="mr-2 mb-2  bg-[#17ead9] hover:bg-[#a35feb]  font-bold py-2 px-4 rounded">Transactions</a>
+                    <a href="#"
+                        class="mr-2 mb-2  bg-[#17ead9] hover:bg-[#a35feb]  font-bold py-2 px-4 rounded">Transactions</a>
                 </div>
             </nav>
         </header>
         <main class="p-4 flex flex-col grow gap-4 items-center">
-            <h1 class="text-3xl text-[#17ead9] font-bold">Accounts</h1>
+            <h2 class="text-3xl text-[#17ead9] font-bold">Accounts</h2>
             <div class="flex gap-4 flex-col md:flex-row w-1/2 justify-center items-center">
                 <template v-if="accounts.length>0" v-for="account in accounts">
                     <div class="w-full">
@@ -49,7 +50,8 @@
                                     </div>
                                     <div class="mb-2 flex justify-between">
                                         <span class="font-bold text-[#21083b]">Balance: </span>
-                                        <span class="text-[#21083b] font-bold">{{account.balance.toLocaleString('en-US', {
+                                        <span class="text-[#21083b] font-bold">{{account.balance.toLocaleString('en-US',
+                                            {
                                             style: 'currency', currency: 'USD' })}}</span>
                                     </div>
                                     <div class=" flex justify-between">
@@ -64,7 +66,7 @@
             </div>
 
             <template v-if="client">
-
+                <h2 class="text-3xl text-[#17ead9] font-bold">Loans</h2>
                 <template v-if="client.clientLoans.length>0">
                     <div class="flex flex-col md:w-1/2 w-full justify-center items-center">
                         <table class="min-w-full bg-[#17ead9] rounded-lg text-[#21083b] text-center">
