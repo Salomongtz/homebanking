@@ -36,7 +36,7 @@
         </header>
         <main class="p-4 flex flex-col grow gap-4 items-center">
             <h1 class="text-3xl text-tealbg-purple-500 font-bold">{{account.number}}</h1>
-            <div class="flex flex-col w-full justify-center gap-4">
+            <div class="flex flex-col w-1/2 justify-center gap-4">
                 <template v-if="account.balance">
                     <a class="" v-bind:href="'./account.html?id='+account.id">
                         <div class="bg-[#17ead9] rounded-lg shadow-[0_35px_60px_-15px_rgba(23,234,217,0.1)] p-4">
@@ -60,7 +60,7 @@
                     </a>
                 </template>
                 <template v-if="transactions.length>0">
-                    <table class="min-w-full bg-[#17ead9] rounded-lg text-[#21083b]">
+                    <table class="min-w-full bg-[#17ead9] rounded-lg text-[#21083b] text-center">
                         <thead>
                             <tr>
                                 <th class="rounded-tl-lg py-2 px-4 bg-purple-500 text-white">Type</th>

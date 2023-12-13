@@ -19,54 +19,54 @@
         </header>
          -->
         <header class="text-[#21083b] p-4">
-            <nav class="flex flex-col sm:flex-row justify-between items-center">
+            <nav class="flex flex-col md:flex-row items-center md:justify-around">
                 <div v-if="client">
                     <h1 class="text-xl text-[#17ead9] font-bold">Welcome, {{client.firstName}}!</h1>
                 </div>
-                <div class="mt-4 sm:mt-0">
+                <div class="mt-4 flex">
                     <a href="./accounts.html"
-                        class="mr-2 mb-2 sm:mb-0 bg-purple-600 hover:bg-purple-600  font-bold py-2 px-4 rounded">Accounts</a>
+                        class="mr-2 mb-2  bg-purple-600 hover:bg-purple-600  font-bold py-2 px-4 rounded">Accounts</a>
                     <a href="#"
-                        class="mr-2 mb-2 sm:mb-0 bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Cards</a>
+                        class="mr-2 mb-2  bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Cards</a>
                     <a href="#"
-                        class="mr-2 mb-2 sm:mb-0 bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Loans</a>
-                    <a href="#" class="bg-[#17ead9] hover:bg-[#a35feb]  font-bold py-2 px-4 rounded">Transactions</a>
+                        class="mr-2 mb-2  bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Loans</a>
+                    <a href="#" class="mr-2 mb-2  bg-[#17ead9] hover:bg-[#a35feb]  font-bold py-2 px-4 rounded">Transactions</a>
                 </div>
             </nav>
         </header>
         <main class="p-4 flex flex-col grow gap-4 items-center">
             <h1 class="text-3xl text-[#17ead9] font-bold">Accounts</h1>
-            <div class="flex w-full justify-center gap-4">
+            <div class="flex gap-4 flex-col md:flex-row w-1/2 justify-center items-center">
                 <template v-if="accounts.length>0" v-for="account in accounts">
-                    <a class=" md:w-1/5" v-bind:href="'./account.html?id='+account.id">
-                        <div class="bg-[#17ead9] rounded-lg shadow-[0_35px_60px_-15px_rgba(23,234,217,0.1)] p-4">
-                            <h3 class="text-lg font-bold mb-2"></h3>
-                            <div class="flex flex-col">
-                                <div class="mb-2 flex justify-between">
-                                    <span class="font-bold text-[#21083b]">Account Number: </span>
-                                    <span class="text-[#21083b] font-bold">{{account.number}}</span>
-                                </div>
-                                <div class="mb-2 flex justify-between">
-                                    <span class="font-bold text-[#21083b]">Balance: </span>
-                                    <span class="text-[#21083b] font-bold">{{account.balance.toLocaleString('en-US', {
-                                        style: 'currency', currency: 'USD' })}}</span>
-                                </div>
-                                <div class=" flex justify-between">
-                                    <span class="font-bold text-[#21083b]">Creation Date: </span>
-                                    <span class="text-[#21083b] font-bold">{{account.creationDate}}</span>
+                    <div class="w-full">
+                        <a class="md:w-1/5" v-bind:href="'./account.html?id='+account.id">
+                            <div class="bg-[#17ead9] rounded-lg  shadow-[0_35px_60px_-15px_rgba(23,234,217,0.1)] p-4">
+                                <h3 class="text-lg font-bold mb-2"></h3>
+                                <div class="flex flex-col">
+                                    <div class="mb-2 flex justify-between">
+                                        <span class="font-bold text-[#21083b]">Account Number: </span>
+                                        <span class="text-[#21083b] font-bold">{{account.number}}</span>
+                                    </div>
+                                    <div class="mb-2 flex justify-between">
+                                        <span class="font-bold text-[#21083b]">Balance: </span>
+                                        <span class="text-[#21083b] font-bold">{{account.balance.toLocaleString('en-US', {
+                                            style: 'currency', currency: 'USD' })}}</span>
+                                    </div>
+                                    <div class=" flex justify-between">
+                                        <span class="font-bold text-[#21083b]">Creation Date: </span>
+                                        <span class="text-[#21083b] font-bold">{{account.creationDate}}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </template>
             </div>
 
             <template v-if="client">
-                <div>
-                    {{client.clientLoans}}
-                </div>
+
                 <template v-if="client.clientLoans.length>0">
-                    <div class="flex flex-col w-1/2 justify-center">
+                    <div class="flex flex-col md:w-1/2 w-full justify-center items-center">
                         <table class="min-w-full bg-[#17ead9] rounded-lg text-[#21083b] text-center">
                             <thead>
                                 <tr>
@@ -93,7 +93,7 @@
             </template>
 
             <div class=" p-4 text-center">
-                <img src="../images/banner.png" alt="Bank App Banner" class="mx-auto my-4 max-w-full h-96">
+                <img src="../images/banner.png" alt="Bank App Banner" class="mx-auto my-4 max-w-full md:h-96">
                 <h1 class="text-2xl">"Where Innovation Meets Banking Brilliance."</h1>
             </div>
         </main>
