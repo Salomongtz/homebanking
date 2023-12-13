@@ -59,23 +59,30 @@ public class HomebankingApplication {
             transactionRepository.save(t4);
             transactionRepository.save(t5);
 
-            Loan loan1 = new Loan("Mortgage", 500000, Set.of(12,24,36,48,60));
-            Loan loan2 = new Loan("Personal", 100000, Set.of(6,12,24));
-            Loan loan3 = new Loan("Automotive", 300000, Set.of(6,12,24,36));
+            Loan mortgage = new Loan("Mortgage", 500000, Set.of(12, 24, 36, 48, 60));
+            Loan personal = new Loan("Personal", 100000, Set.of(6, 12, 24));
+            Loan automotive = new Loan("Automotive", 300000, Set.of(6, 12, 24, 36));
 
-            loanRepository.saveAll(List.of(loan1,loan2,loan3));
+            loanRepository.saveAll(List.of(mortgage, personal, automotive));
 
-            ClientLoan melbaMortgage=new ClientLoan(400000,60);
-            ClientLoan melbaPersonal=new ClientLoan(50000,12);
-            ClientLoan salomonPersonal=new ClientLoan(100000,24);
-            ClientLoan salomonAutomotive=new ClientLoan(400000,60);
+            ClientLoan melbaMortgage = new ClientLoan(400000, 60);
+            ClientLoan melbaPersonal = new ClientLoan(50000, 12);
+            ClientLoan salomonPersonal = new ClientLoan(100000, 24);
+            ClientLoan salomonAutomotive = new ClientLoan(400000, 60);
 
-            clientLoanRepository.saveAll(List.of(melbaMortgage,melbaPersonal,salomonPersonal,salomonAutomotive));
 
             melba.addClientLoans(melbaMortgage);
             melba.addClientLoans(melbaPersonal);
             salomon.addClientLoans(salomonPersonal);
             salomon.addClientLoans(salomonAutomotive);
+
+            mortgage.addClientLoan(melbaMortgage);
+            personal.addClientLoan(melbaPersonal);
+            personal.addClientLoan(salomonPersonal);
+            automotive.addClientLoan(salomonAutomotive);
+
+            clientLoanRepository.saveAll(List.of(melbaMortgage, melbaPersonal, salomonPersonal, salomonAutomotive));
+
         };
     }
 

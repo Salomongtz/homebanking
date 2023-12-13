@@ -20,7 +20,7 @@
          -->
         <header class="text-[#21083b] p-4">
             <nav class="flex flex-col sm:flex-row justify-between items-center">
-                <div>
+                <div v-if="client">
                     <h1 class="text-xl text-[#17ead9] font-bold">Welcome, {{client.firstName}}!</h1>
                 </div>
                 <div class="mt-4 sm:mt-0">
@@ -30,8 +30,7 @@
                         class="mr-2 mb-2 sm:mb-0 bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Cards</a>
                     <a href="#"
                         class="mr-2 mb-2 sm:mb-0 bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Loans</a>
-                    <a href="#"
-                        class="bg-[#17ead9] hover:bg-[#a35feb]  font-bold py-2 px-4 rounded">Transactions</a>
+                    <a href="#" class="bg-[#17ead9] hover:bg-[#a35feb]  font-bold py-2 px-4 rounded">Transactions</a>
                 </div>
             </nav>
         </header>
@@ -49,7 +48,8 @@
                                 </div>
                                 <div class="mb-2 flex justify-between">
                                     <span class="font-bold text-[#21083b]">Balance: </span>
-                                    <span class="text-[#21083b] font-bold">{{account.balance.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}}</span>
+                                    <span class="text-[#21083b] font-bold">{{account.balance.toLocaleString('en-US', {
+                                        style: 'currency', currency: 'USD' })}}</span>
                                 </div>
                                 <div class=" flex justify-between">
                                     <span class="font-bold text-[#21083b]">Creation Date: </span>
@@ -60,6 +60,38 @@
                     </a>
                 </template>
             </div>
+
+            <template v-if="client">
+                <div>
+                    {{client.clientLoans}}
+                </div>
+                <template v-if="client.clientLoans.length>0">
+                    <div class="flex flex-col w-1/2 justify-center">
+                        <table class="min-w-full bg-[#17ead9] rounded-lg text-[#21083b] text-center">
+                            <thead>
+                                <tr>
+                                    <th class="rounded-tl-lg py-2 px-4 bg-purple-500 text-white">Name</th>
+                                    <th class="py-2 px-4 bg-purple-500 text-white">Amount</th>
+                                    <th class="rounded-tr-lg py-2 px-4 bg-purple-500 text-white">Payments</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="loan in client.clientLoans">
+                                    <td>{{ loan.name }}</td>
+                                    <td>{{ loan.amount }}</td>
+                                    <td>{{ loan.payments }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </template>
+                <template v-else>
+                    <div>
+                        {{client.firstName}}, you have no loans.
+                    </div>
+                </template>
+            </template>
+
             <div class=" p-4 text-center">
                 <img src="../images/banner.png" alt="Bank App Banner" class="mx-auto my-4 max-w-full h-96">
                 <h1 class="text-2xl">"Where Innovation Meets Banking Brilliance."</h1>

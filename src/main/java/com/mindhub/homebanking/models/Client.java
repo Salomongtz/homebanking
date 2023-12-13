@@ -21,9 +21,9 @@ public class Client {
         accounts.add(account);
     }
 
-    public void addClientLoans(ClientLoan clientLoans) {
-        this.clientLoans.add(clientLoans);
-        clientLoans.setClient(this);
+    public void addClientLoans(ClientLoan clientLoan) {
+        this.clientLoans.add(clientLoan);
+        clientLoan.setClient(this);
     }
 
     public Client(String firstName, String lastName, String email) {
