@@ -18,6 +18,7 @@ createApp({
                 .then(response => {
                     this.account = response.data
                     this.transactions = this.account.transactions
+                    this.transactions.sort((a, b) => (b.id) - (a.id))
                     console.log(this.account)
                     console.log(this.account.transactions);
                 })

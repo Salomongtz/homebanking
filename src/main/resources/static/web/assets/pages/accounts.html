@@ -9,9 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
-<body class=" text-white flex flex-col min-h-screen bg-[#21083b]">
-    <div id="app" class="flex grow flex-col">
-        <!-- <header class="text-3xl  font-bold bg-slate-500 flex gap-6 justify-center">
+<body class=" text-white flex flex-col bg-[#21083b]">
+    <div id="app" class="flex flex-col">
+        <!-- <header class="text-3xl  font-bold bg-slate-600 flex gap-6 justify-center">
             <a href="">Accounts</a>
             <a href="">Cards</a>
             <a href="">Loans</a>
@@ -19,40 +19,39 @@
         </header>
          -->
         <header class="text-[#21083b] p-4">
-            <nav class="flex flex-col md:flex-row items-center md:justify-around">
+            <nav class="flex flex-col lg:flex-row items-center lg:justify-around">
                 <div v-if="client">
-                    <h1 class="text-xl text-[#17ead9] font-bold">Welcome, {{client.firstName}}!</h1>
+                    <h1 class="text-6xl text-cyan-400 font-bold">Welcome, {{client.firstName}}!</h1>
                 </div>
-                <div class="mt-4 flex">
+                <div class="mt-4 hidden lg:flex text-xl text-cyan-400">
                     <a href="./accounts.html"
-                        class="mr-2 mb-2  bg-purple-600 hover:bg-purple-600  font-bold py-2 px-4 rounded">Accounts</a>
+                        class="mr-2 mb-2  bg-purple-900 hover:bg-purple-900  font-bold py-2 px-4 rounded">Accounts</a>
                     <a href="#"
-                        class="mr-2 mb-2  bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Cards</a>
+                        class="mr-2 mb-2   hover:bg-purple-900  font-bold py-2 px-4 rounded">Cards</a>
                     <a href="#"
-                        class="mr-2 mb-2  bg-[#17ead9] hover:bg-purple-600  font-bold py-2 px-4 rounded">Loans</a>
+                        class="mr-2 mb-2   hover:bg-purple-900  font-bold py-2 px-4 rounded">Loans</a>
                     <a href="#"
-                        class="mr-2 mb-2  bg-[#17ead9] hover:bg-[#a35feb]  font-bold py-2 px-4 rounded">Transactions</a>
+                        class="mr-2 mb-2   hover:bg-purple-900  font-bold py-2 px-4 rounded">Transactions</a>
                 </div>
             </nav>
         </header>
-        <main class="p-4 flex flex-col grow gap-4 items-center">
-            <h2 class="text-3xl text-[#17ead9] font-bold">Accounts</h2>
-            <div class="flex gap-4 flex-col md:flex-row w-1/2 justify-center items-center">
+        <main class="p-4 flex flex-col gap-4 items-center">
+            <h2 class="text-5xl text-cyan-400 font-bold mb-8">Accounts</h2>
+            <div class="text-xl flex gap-4 flex-col lg:flex-row w-2/3 justify-center items-center">
                 <template v-if="accounts.length>0" v-for="account in accounts">
                     <div class="w-full">
-                        <a class="md:w-1/5" v-bind:href="'./account.html?id='+account.id">
-                            <div class="bg-[#17ead9] rounded-lg  shadow-[0_35px_60px_-15px_rgba(23,234,217,0.1)] p-4">
-                                <h3 class="text-lg font-bold mb-2"></h3>
+                        <a class="lg:w-1/5" v-bind:href="'./account.html?id='+account.id">
+                            <div class="bg-purple-900 rounded-t-lg flex p-2 justify-between">
+                                <span class="text-2xl text-white font-bold">{{account.number}}</span>
+                            </div>
+                            <div class="bg-cyan-400 rounded-b-lg p-4">
                                 <div class="flex flex-col">
                                     <div class="mb-2 flex justify-between">
-                                        <span class="font-bold text-[#21083b]">Account Number: </span>
-                                        <span class="text-[#21083b] font-bold">{{account.number}}</span>
-                                    </div>
-                                    <div class="mb-2 flex justify-between">
                                         <span class="font-bold text-[#21083b]">Balance: </span>
-                                        <span class="text-[#21083b] font-bold">{{account.balance.toLocaleString('en-US',
-                                            {
-                                            style: 'currency', currency: 'USD' })}}</span>
+                                        <span class="text-[#21083b] font-bold">
+                                            {{account.balance.toLocaleString('en-US',{style:'currency', currency:
+                                            'USD'})}}
+                                        </span>
                                     </div>
                                     <div class=" flex justify-between">
                                         <span class="font-bold text-[#21083b]">Creation Date: </span>
@@ -65,16 +64,17 @@
                 </template>
             </div>
 
+            <h2 class="text-5xl text-cyan-400 font-bold my-8">Loans</h2>
+
             <template v-if="client">
-                <h2 class="text-3xl text-[#17ead9] font-bold">Loans</h2>
                 <template v-if="client.clientLoans.length>0">
-                    <div class="flex flex-col md:w-1/2 w-full justify-center items-center">
-                        <table class="min-w-full bg-[#17ead9] rounded-lg text-[#21083b] text-center">
+                    <div class="flex flex-col w-2/3 justify-center items-center">
+                        <table class="min-w-full text-xl bg-cyan-400 rounded-lg font-bold text-[#21083b] text-center">
                             <thead>
                                 <tr>
-                                    <th class="rounded-tl-lg py-2 px-4 bg-purple-500 text-white">Name</th>
-                                    <th class="py-2 px-4 bg-purple-500 text-white">Amount</th>
-                                    <th class="rounded-tr-lg py-2 px-4 bg-purple-500 text-white">Payments</th>
+                                    <th class="rounded-tl-lg py-2 px-4 bg-purple-900 text-white text-2xl">Name</th>
+                                    <th class="py-2 px-4 bg-purple-900 text-white text-2xl">Amount</th>
+                                    <th class="rounded-tr-lg py-2 px-4 bg-purple-900 text-white text-2xl">Payments</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -85,6 +85,26 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <!-- <table>
+                            <tr>
+                                <th>Name</th>
+                                <td></td>
+                                <td>2</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <th>Loan Amount</th>
+                                <td>$1000</td>
+                                <td>$2000</td>
+                                <td>$3000</td>
+                            </tr>
+                            <tr>
+                                <th>Interest Rate</th>
+                                <td>5%</td>
+                                <td>6%</td>
+                                <td>7%</td>
+                            </tr>
+                        </table> -->
                     </div>
                 </template>
                 <template v-else>
@@ -95,25 +115,25 @@
             </template>
 
             <div class=" p-4 text-center">
-                <img src="../images/banner.png" alt="Bank App Banner" class="mx-auto my-4 max-w-full md:h-96">
-                <h1 class="text-2xl">"Where Innovation Meets Banking Brilliance."</h1>
+                <img src="../images/banner.png" alt="Bank App Banner" class="mx-auto my-4 max-w-full lg:h-96">
             </div>
         </main>
     </div>
-    <footer class="text-[#17ead9] p-4 text-center">
+    <footer class="text-cyan-400 p-4 flex items-center justify-around">
+
+        <h3 class="text-lg font-bold">2023 - Vertex Vanguard Bank</h3>
+
         <div>
-            <h3 class="text-lg font-bold">2023 - Vertex Vanguard Bank</h3>
-        </div>
-        <div class="mt-4">
-            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="mr-2">
+            <a href="https://www.instagram.com" class="mr-2">
                 Instagram
             </a>
-            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="mr-2">
+            <a href="https://www.facebook.com" class="mr-2">
                 Facebook
             </a>
-            <a href="https://www.whatsapp.com" target="_blank" rel="noopener noreferrer" class="mr-2">
+            <a href="https://www.whatsapp.com" class="mr-2">
                 WhatsApp
             </a>
+        </div>
     </footer>
     <script src=" ./accounts.js">
     </script>
