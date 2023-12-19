@@ -4,6 +4,7 @@ createApp({
     data() {
         return {
             account: {},
+            client: {},
             transactions: [],
         }
     },
@@ -14,7 +15,7 @@ createApp({
         loadData() {
             console.log("LoadData");
             const queryParams = new URLSearchParams(window.location.search)
-            axios.get('/api/accounts/'+queryParams.get('id'))
+            axios.get('/api/accounts/' + queryParams.get('id'))
                 .then(response => {
                     this.account = response.data
                     this.transactions = this.account.transactions
@@ -23,6 +24,13 @@ createApp({
                     console.log(this.account.transactions);
                 })
                 .catch(error => console.log(error))
+            axios.get('/api/clients/1')
+                .then(response => {
+                    this.client = response.data
+                    console.log(this.client)
+                })
+                .catch(error => console.log(error))
+
         }
     }
 }).mount("#app")
