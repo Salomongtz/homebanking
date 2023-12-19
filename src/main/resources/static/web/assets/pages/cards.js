@@ -6,7 +6,8 @@ createApp({
             client: {},
             cards: [],
             credit: [],
-            debit: []
+            debit: [],
+            condicion:true
         }
     },
     created() {
@@ -19,7 +20,7 @@ createApp({
                 .then(response => {
                     this.client = response.data
                     this.cards = this.client.cards
-                    this.debit = this.cards.filter(card => card.type === "DEBIT")
+                    this.debit = this.cards.filter(card => card.type === "DEBIT").toSorted((a, b, c) => a.color.localeCompare(b.color) || a.cardHolder.localeCompare(c.cardHolder))
                     this.credit = this.cards.filter(card => card.type === "CREDIT")
                     console.log(this.client)
                     console.log(this.client.cards);

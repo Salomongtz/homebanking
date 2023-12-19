@@ -1,11 +1,18 @@
-/** @type {import('tailwindcss').Config} */
-export const theme = {
+tailwind.config = {
+  theme: {
     extend: {
       colors: {
         clifford: '#da373d',
-      },boxShadow: {
-        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+      },
+      fontFamily: {
+        'share-tech': ['Share Tech Mono', 'monospace'],
+      },
+      backgroundImage: {
+        'gold': "url('web\assets\images\cardGold.png')",
+        'silver': "url('./images/cardSilver.png')",
+        'titanium': "url('./images/cardTitanium.png')",
       }
     }
-  };
-  export const plugins = [];
+  }
+};
+export const plugins = [];
