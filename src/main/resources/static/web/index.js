@@ -8,7 +8,7 @@ createApp({
             firstName: "",
             lastName: "",
             rememberMe: false,
-            showLogin: true
+            showLogin: false
         }
     },
     created() {
