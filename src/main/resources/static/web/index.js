@@ -7,7 +7,8 @@ createApp({
             password: "",
             firstName: "",
             lastName: "",
-            rememberMe: false
+            rememberMe: false,
+            showLogin: true
         }
     },
     created() {
@@ -22,11 +23,17 @@ createApp({
                 .then(response => {
                     console.log('Signed in! Welcome' + this.email + response.data)
                     this.clearData()
+                    window.location.href = './assets/pages/accounts.html'
                 }).catch(error => console.log(error))
-            // window.location.href = "/web/assets/pages/accounts.html"
         },
         register() {
-            axios.post("/api/clients?firstName=" + this.firstName + "&lastName" + this.lastName + "&email=" + this.email + "&password" + this.password, { headers: { 'content-type': 'application/x-www-form-urlencoded' } }).then(response => console.log('registered')).then(this.clearData()).then(this.login())
+            axios.post("/api/clients?firstName=" + this.firstName + "&lastName=" + this.lastName + "&email=" + this.email + "&password=" + this.password)
+                .then(response => {
+                    console.log("registered" + this.email);
+                    console.log(response.data);
+                    this.login();   
+                })
+                .catch(error => console.log(error))
         },
         clearData() {
             this.email = ""
@@ -35,7 +42,7 @@ createApp({
             this.lastName = ""
         },
         logout() {
-            axios.post('/api/logout').then(response => console.log('signed out!!!'))
+            axios.post('/api/logout').then(response => window.location.href = '/web/index.html')
         }
     },
     computed: {

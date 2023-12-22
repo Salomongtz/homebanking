@@ -26,6 +26,8 @@ createApp({
                     console.log(this.client.cards);
                 })
                 .catch(error => console.log(error))
+        },logout() {
+            axios.post('/api/logout').then(response => window.location.href = '/web/index.html')
         }
     }
 }).mount("#app")
