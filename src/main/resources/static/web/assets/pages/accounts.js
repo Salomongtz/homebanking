@@ -13,7 +13,7 @@ createApp({
     methods: {
         loadData() {
             console.log("LoadData");
-            axios.get('/api/clients/1')
+            axios.get('/api/clients/current')
                 .then(response => {
                     this.client = response.data
                     this.accounts = this.client.accounts
