@@ -7,6 +7,8 @@
     <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/x-icon">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/styles/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +38,8 @@
                             <img src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                                 class="w-full" alt="Phone image" />
                         </div>
-                        <div v-else class="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
+                        <div v-else
+                            class="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12">
                             <img src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
                                 class="w-full" alt="Sample image" />
                         </div>
@@ -172,7 +175,7 @@
             </a>
         </div>
     </footer>
-    <script src=" ./index.js">
+    <script type="module" src=" ./index.js">
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="./tailwind.config.js"></script>

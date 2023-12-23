@@ -24,7 +24,7 @@ createApp({
                     console.log(this.account.transactions);
                 })
                 .catch(error => console.log(error))
-            axios.get('/api/clients/1')
+            axios.get('/api/clients/current')
                 .then(response => {
                     this.client = response.data
                     console.log(this.client)

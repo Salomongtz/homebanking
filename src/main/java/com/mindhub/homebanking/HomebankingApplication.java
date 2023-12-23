@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -50,7 +49,7 @@ public class HomebankingApplication {
 
             Transaction t1 = new Transaction(TransactionType.DEBIT, -200, LocalDate.now(), "Regalo para sobrino.");
             Transaction t2 = new Transaction(TransactionType.CREDIT, 2000, LocalDate.now(), "Boda Antonio.");
-            Transaction t3 = new Transaction(TransactionType.CREDIT, 900, LocalDate.now(), "Fiesta Melbita.");
+            Transaction t3 = new Transaction(TransactionType.CREDIT, 900, LocalDate.now(), "Fiesta Melba.");
             Transaction t4 = new Transaction(TransactionType.DEBIT, -1300, LocalDate.now(), "Seguro Auto.");
             Transaction t5 = new Transaction(TransactionType.CREDIT, 499.99, LocalDate.now(), "PS5");
 
@@ -91,7 +90,7 @@ public class HomebankingApplication {
 
             Card debitGoldMelba = new Card("1234 5678 9101 1121","911", "Melba Morel", CardType.DEBIT, CardColor.GOLD, LocalDate.now(),LocalDate.now().plusYears(5));
             Card creditTitaniumMelba = new Card("9929 1239 8980 2093","626", "Melba Morel", CardType.CREDIT, CardColor.TITANIUM, LocalDate.now(),LocalDate.now().plusYears(5));
-            Card creditSilverSalomon = new Card("9878 7231 2312 1313","626", "Salomón Gutiérrez" ,CardType.CREDIT, CardColor.TITANIUM, LocalDate.now(),LocalDate.now().plusYears(5));
+            Card creditSilverSalomon = new Card("9878 7231 2312 1313","621", "Salomón Gutiérrez" ,CardType.CREDIT, CardColor.TITANIUM, LocalDate.now(),LocalDate.now().plusYears(5));
 
             melba.addCard(debitGoldMelba);
             melba.addCard(creditTitaniumMelba);

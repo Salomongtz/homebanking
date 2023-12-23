@@ -8,12 +8,10 @@ createApp({
             firstName: "",
             lastName: "",
             rememberMe: false,
-            showLogin: false
+            showLogin: true
         }
     },
     created() {
-        // axios.post('/api/login', "email=david@admin.com&password=***REMOVED***", { headers: { 'content-type': 'application/x-www-form-urlencoded' } }).then(response => console.log('signed in!!!'))
-        // axios.post('/api/clients', "firstName=pedro2&lastName=rodriguez&email=pedro@mindhub.com&password=pedro", { headers: { 'content-type': 'application/x-www-form-urlencoded' } }).then(response => console.log('registered'))
     },
     methods: {
         login() {
@@ -24,14 +22,23 @@ createApp({
                     console.log('Signed in! Welcome' + this.email + response.data)
                     this.clearData()
                     window.location.href = './assets/pages/accounts.html'
-                }).catch(error => console.log(error))
+                }).catch(
+                    error => {
+                        console.log(error)
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "Something went wrong!",
+                            footer: '<a href="#">Why do I have this issue?</a>'
+                        })
+                    })
         },
         register() {
             axios.post("/api/clients?firstName=" + this.firstName + "&lastName=" + this.lastName + "&email=" + this.email + "&password=" + this.password)
                 .then(response => {
                     console.log("registered" + this.email);
                     console.log(response.data);
-                    this.login();   
+                    this.login();
                 })
                 .catch(error => console.log(error))
         },

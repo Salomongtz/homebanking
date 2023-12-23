@@ -1,7 +1,5 @@
 package com.mindhub.homebanking.dto;
 
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.Client;
 
 import java.util.HashSet;

@@ -16,7 +16,7 @@ createApp({
             axios.get('/api/clients/current')
                 .then(response => {
                     this.client = response.data
-                    this.accounts = this.client.accounts
+                    this.accounts = this.client.accounts.toSorted((a, b) => (a.id) - (b.id))
                     console.log(this.client)
                     console.log(this.client.accounts);
                 })

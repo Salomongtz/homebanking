@@ -21,15 +21,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(auth -> auth.requestMatchers("/web/index.html", "/web/index.js", "/web/assets" +
+        http.authorizeHttpRequests(auth -> auth.requestMatchers("/web/*", "/web/assets" +
                         "/images/**", "/web/assets/styles/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/clients/current", "/api/accounts/*", "/api/cards/*", "/web/assets/pages/**").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.GET, "/api/clients/current", "/api/accounts/*", "/api/cards/*", "/web" +
+                        "/assets/pages/**").hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.GET, "/api/clients/", "web/**").hasAuthority("ADMIN")
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
                 .anyRequest().denyAll());
 
-        http.csrf(csrf -> csrf.disable());
+        http.csrf(AbstractHttpConfigurer::disable);
 
         http.headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.frameOptions(
                 HeadersConfigurer.FrameOptionsConfig::disable));
@@ -40,7 +41,7 @@ public class SecurityConfig {
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .successHandler((request, response, authentication) -> clearAuthenticationAttributes(request))
-                .failureHandler((request, response, exception) -> response.sendError(403))
+                .failureHandler((request, response, exception) -> response.sendError(401))
                 .permitAll());
 
         http.rememberMe(Customizer.withDefaults());
