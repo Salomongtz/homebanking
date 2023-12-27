@@ -51,6 +51,7 @@ public class AccountController {
         if (client.getAccounts().size() >= 3) {
             return new ResponseEntity<>("Maximum number of accounts reached.", HttpStatus.FORBIDDEN);
         }
+
         String number = generateAccountNumber();
         Account account = new Account(number, LocalDate.now(), 0);
         client.addAccount(account);

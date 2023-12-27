@@ -9,19 +9,23 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body class=" text-white flex flex-col bg-[#21083b]">
     <div id="app" class="flex flex-col">
         <header class="text-white p-4">
             <nav class="flex lg:flex-row flex-col items-center justify-around">
-                <div class="flex items-center gap-6" v-if="client">
-                    <img class="h-16" src="../images/logo.png" alt="Vertex">
+                <div class="flex items-center gap-6">
+                    <img class="h-16" src="../images/logo.png" alt="logo">
                     <h1 class="text-4xl text-white font-bold">Vertex Vanguard</h1>
                 </div>
                 <div class="mt-4 flex text-xl text-white">
                     <a href="./accounts.html"
-                        class="mr-2 mb-2 flex gap-2 items-center bg-cyan-600 hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
+                        class="mr-2 mb-2 flex gap-2 items-center hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
                         <svg fill="#FFFFFF" height="24px" width="24px" version="1.1" id="Capa_1"
                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             viewBox="0 0 495.539 495.539" xml:space="preserve">
@@ -45,7 +49,7 @@
                         Accounts
                     </a>
                     <a href="./cards.html"
-                        class="mr-2 mb-2 flex gap-2 items-center hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
+                        class="mr-2 mb-2 flex gap-2 items-center bg-cyan-600 hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
                         <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -60,28 +64,24 @@
                         </svg>
                         Cards
                     </a>
-                    <a href="./loans.html"
-                        class="mr-2 mb-2 flex gap-2 items-center hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
-                        <svg fill="#FFFFFF" width="24px" height="24px" viewBox="-1 0 19 19"
+                    <a href="./"
+                        class="mr-2 mb-2 flex gap-2 items-center hover:bg-cyan-600  font-bold py-2 px-4 rounded-full"><svg
+                            fill="#FFFFFF" width="24px" height="24px" viewBox="-1 0 19 19"
                             xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg">
                             <path
                                 d="M16.417 9.583A7.917 7.917 0 1 1 8.5 1.666a7.917 7.917 0 0 1 7.917 7.917zm-3.325.418a4.584 4.584 0 0 0-1.112-3l.44-.44a.396.396 0 1 0-.56-.56l-.445.447a4.58 4.58 0 0 0-2.529-1.032v-.604l.323-.001a.396.396 0 0 0 0-.792h-.002l-1.436.005a.396.396 0 0 0 .001.792h.002l.32-.001v.601a4.602 4.602 0 1 0 4.998 4.585zm-.744 0A3.858 3.858 0 1 1 8.49 6.143a3.858 3.858 0 0 1 3.858 3.858zM6.322 7.833a3.067 3.067 0 1 0 2.168-.898 3.047 3.047 0 0 0-2.168.898zm3.561 2.954a1.005 1.005 0 0 1-.504.87 1.592 1.592 0 0 1-.483.204v.301a.396.396 0 0 1-.792 0v-.296a1.819 1.819 0 0 1-.307-.098 1.144 1.144 0 0 1-.438-.321.396.396 0 1 1 .598-.518.372.372 0 0 0 .134.104 1.015 1.015 0 0 0 .19.061 1.515 1.515 0 0 0 .205.025.91.91 0 0 0 .462-.127c.143-.093.143-.168.143-.205a.24.24 0 0 0-.059-.155.572.572 0 0 0-.15-.121.774.774 0 0 0-.19-.068.891.891 0 0 0-.187-.02 1.964 1.964 0 0 1-.328-.025 1.508 1.508 0 0 1-.424-.137 1.234 1.234 0 0 1-.405-.325 1.048 1.048 0 0 1-.241-.658 1.061 1.061 0 0 1 .527-.897 1.58 1.58 0 0 1 .47-.195v-.289a.396.396 0 1 1 .792 0v.3a1.832 1.832 0 0 1 .313.11 1.31 1.31 0 0 1 .384.265.396.396 0 0 1-.559.56.52.52 0 0 0-.15-.103 1.016 1.016 0 0 0-.194-.068l-.021-.005a1.003 1.003 0 0 0-.16-.027.895.895 0 0 0-.452.121.28.28 0 0 0-.158.228.269.269 0 0 0 .063.159.453.453 0 0 0 .145.116.727.727 0 0 0 .2.064 1.177 1.177 0 0 0 .198.015 1.691 1.691 0 0 1 .355.037 1.574 1.574 0 0 1 .39.141 1.363 1.363 0 0 1 .379.301 1.028 1.028 0 0 1 .254.676z" />
-                        </svg>
-                        Loans
-                    </a>
-                    <a href="./transactions.html"
+                        </svg>Loans</a>
+                    <a href="#"
                         class="mr-2 mb-2 flex gap-2 items-center hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" width="24px" height="24px"
                             viewBox="0 0 24 24">
                             <path
                                 d="M17.0020048,13 C17.5542895,13 18.0020048,13.4477153 18.0020048,14 C18.0020048,14.5128358 17.6159646,14.9355072 17.1186259,14.9932723 L17.0020048,15 L5.41700475,15 L8.70911154,18.2928932 C9.0695955,18.6533772 9.09732503,19.2206082 8.79230014,19.6128994 L8.70911154,19.7071068 C8.34862757,20.0675907 7.78139652,20.0953203 7.38910531,19.7902954 L7.29489797,19.7071068 L2.29489797,14.7071068 C1.69232289,14.1045317 2.07433707,13.0928192 2.88837381,13.0059833 L3.00200475,13 L17.0020048,13 Z M16.6128994,4.20970461 L16.7071068,4.29289322 L21.7071068,9.29289322 C22.3096819,9.8954683 21.9276677,10.9071808 21.1136309,10.9940167 L21,11 L7,11 C6.44771525,11 6,10.5522847 6,10 C6,9.48716416 6.38604019,9.06449284 6.88337887,9.00672773 L7,9 L18.585,9 L15.2928932,5.70710678 C14.9324093,5.34662282 14.9046797,4.77939176 15.2097046,4.38710056 L15.2928932,4.29289322 C15.6533772,3.93240926 16.2206082,3.90467972 16.6128994,4.20970461 Z" />
-                        </svg>
-                        Transactions
+                        </svg>Transactions
                     </a>
                 </div>
                 <button @click="logout" class=" bg-red-400 rounded-full px-4 py-2 font-bold flex items-center gap-2"
-                    type="button">Logout
-                    <svg fill="#FFFFFF" height="24px" width="24px" version="1.1" id="Layer_1"
+                    type="button">Logout<svg fill="#FFFFFF" height="24px" width="24px" version="1.1" id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                         viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
                         <g id="Exit_1_">
@@ -104,80 +104,36 @@
             </nav>
         </header>
         <main class="p-4 flex flex-col gap-4 items-center">
-            <h2 class="text-4xl text-white font-bold mb-8">Welcome, {{client.firstName}}!</h2>
-            <h2 class="text-3xl text-white font-bold mb-8">Your Accounts</h2>
-            <div class="text-xl flex gap-4 flex-col lg:flex-row w-2/3 justify-center items-center">
-                <template v-if="accounts.length>0" v-for="account in accounts">
-                    <div class="w-full">
-                        <a class="lg:w-1/5" v-bind:href="'./account.html?id='+account.id">
-                            <div class="bg-cyan-600 rounded-t-lg flex p-2 justify-between">
-                                <span class="text-2xl text-white font-bold">{{account.number}}</span>
-                                <button type="button">Details</button>
-                            </div>
-                            <div class="bg-purple-900 rounded-b-lg p-4">
-                                <div class="flex flex-col">
-                                    <div class="mb-2 flex justify-between">
-                                        <span class="font-bold text-white">Balance: </span>
-                                        <span class="text-white font-bold">
-                                            {{account.balance.toLocaleString('en-US',{style:'currency', currency:
-                                            'USD'})}}
-                                        </span>
-                                    </div>
-                                    <div class=" flex justify-between">
-                                        <span class="font-bold text-white">Creation Date: </span>
-                                        <span class="text-white font-bold">{{account.creationDate}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </template>
-                <template v-if="accounts.length < 3" class="w-2/3 h-full">
-                        <div @click="createAccount" class="cursor-pointer h-full w-full border-dotted border-2 rounded-lg p-4 flex items-center justify-center">
-                            <div class="flex flex-col">
-                                <div class="mb-2 flex flex-col gap-4 items-center justify-center">
-                                    <span class="font-bold text-white">Create new account</span>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor"
-                                        class="bi bi-plus-circle-dotted" viewBox="0 0 16 16">
-                                        <path
-                                            d="M8 0c-.176 0-.35.006-.523.017l.064.998a7.117 7.117 0 0 1 .918 0l.064-.998A8.113 8.113 0 0 0 8 0M6.44.152c-.346.069-.684.16-1.012.27l.321.948c.287-.098.582-.177.884-.237L6.44.153zm4.132.271a7.946 7.946 0 0 0-1.011-.27l-.194.98c.302.06.597.14.884.237l.321-.947zm1.873.925a8 8 0 0 0-.906-.524l-.443.896c.275.136.54.29.793.459l.556-.831zM4.46.824c-.314.155-.616.33-.905.524l.556.83a7.07 7.07 0 0 1 .793-.458zM2.725 1.985c-.262.23-.51.478-.74.74l.752.66c.202-.23.418-.446.648-.648l-.66-.752zm11.29.74a8.058 8.058 0 0 0-.74-.74l-.66.752c.23.202.447.418.648.648l.752-.66m1.161 1.735a7.98 7.98 0 0 0-.524-.905l-.83.556c.169.253.322.518.458.793l.896-.443zM1.348 3.555c-.194.289-.37.591-.524.906l.896.443c.136-.275.29-.54.459-.793l-.831-.556zM.423 5.428a7.945 7.945 0 0 0-.27 1.011l.98.194c.06-.302.14-.597.237-.884l-.947-.321zM15.848 6.44a7.943 7.943 0 0 0-.27-1.012l-.948.321c.098.287.177.582.237.884l.98-.194zM.017 7.477a8.113 8.113 0 0 0 0 1.046l.998-.064a7.117 7.117 0 0 1 0-.918l-.998-.064zM16 8a8.1 8.1 0 0 0-.017-.523l-.998.064a7.11 7.11 0 0 1 0 .918l.998.064A8.1 8.1 0 0 0 16 8M.152 9.56c.069.346.16.684.27 1.012l.948-.321a6.944 6.944 0 0 1-.237-.884l-.98.194zm15.425 1.012c.112-.328.202-.666.27-1.011l-.98-.194c-.06.302-.14.597-.237.884l.947.321zM.824 11.54a8 8 0 0 0 .524.905l.83-.556a6.999 6.999 0 0 1-.458-.793l-.896.443zm13.828.905c.194-.289.37-.591.524-.906l-.896-.443c-.136.275-.29.54-.459.793l.831.556zm-12.667.83c.23.262.478.51.74.74l.66-.752a7.047 7.047 0 0 1-.648-.648l-.752.66zm11.29.74c.262-.23.51-.478.74-.74l-.752-.66c-.201.23-.418.447-.648.648l.66.752m-1.735 1.161c.314-.155.616-.33.905-.524l-.556-.83a7.07 7.07 0 0 1-.793.458l.443.896zm-7.985-.524c.289.194.591.37.906.524l.443-.896a6.998 6.998 0 0 1-.793-.459l-.556.831zm1.873.925c.328.112.666.202 1.011.27l.194-.98a6.953 6.953 0 0 1-.884-.237l-.321.947zm4.132.271a7.944 7.944 0 0 0 1.012-.27l-.321-.948a6.954 6.954 0 0 1-.884.237l.194.98zm-2.083.135a8.1 8.1 0 0 0 1.046 0l-.064-.998a7.11 7.11 0 0 1-.918 0l-.064.998zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                </template>
-            </div>
+            <h2 class="text-4xl text-white font-bold mb-8">Get your Credit/Debit card with Vertex</h2>
+            <form class="p-4">
+                <div class="mb-4">
+                    <label for="card-color" class="block">Card Color:</label>
+                    <select v-model="color" id="card-color" name="card-color"
+                        class="w-full  bg-cyan-600 rounded-md px-3 py-2">
+                        <option value="">Select Color</option>
+                        <option value="silver">Silver</option>
+                        <option value="gold">Gold</option>
+                        <option value="titanium">Titanium</option>
+                    </select>
+                </div>
 
-            <h2 class="text-3xl text-white font-bold my-8">Your Loans</h2>
-
-            <template v-if="client">
-                <template v-if="client.clientLoans.length>0">
-                    <div class="flex flex-col w-2/3 justify-center items-center">
-                        <table class="min-w-full text-xl bg-purple-900 rounded-lg font-bold text-white text-center">
-                            <thead>
-                                <tr>
-                                    <th class="rounded-tl-lg py-2 px-4 bg-cyan-600 text-white text-2xl">Name</th>
-                                    <th class="py-2 px-4 bg-cyan-600 text-white text-2xl">Amount</th>
-                                    <th class="rounded-tr-lg py-2 px-4 bg-cyan-600 text-white text-2xl">Payments</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="loan in client.clientLoans">
-                                    <td>{{ loan.name }}</td>
-                                    <td>{{ loan.amount }}</td>
-                                    <td>{{ loan.payments }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </template>
-                <template v-else>
+                <div class="mb-4">
+                    <label class="block">Card Type:</label>
                     <div>
-                        {{client.firstName}}, you have no loans.
-                    </div>
-                </template>
-            </template>
+                        <input v-model="type" type="radio" id="credit" name="payment-method" value="credit"
+                            class="mr-2">
+                        <label for="credit" class="mr-4">Credit</label>
 
+                        <input v-model="type" type="radio" id="debit" name="payment-method" value="debit" class="mr-2">
+                        <label for="debit">Debit</label>
+                    </div>
+                </div>
+
+                <button type="submit" @click.prevent="createCard"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md">Submit</button>
+            </form>
+            <a class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md" href="./cards.html">Go back to
+                cards</a>
             <div class=" p-4 text-center">
                 <img src="../images/banner.png" alt="Bank App Banner" class="mx-auto my-4 max-w-full lg:h-96">
             </div>
@@ -199,7 +155,7 @@
             </a>
         </div>
     </footer>
-    <script src=" ./accounts.js">
+    <script src=" ./createCard.js">
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="../../tailwind.config.js"></script>

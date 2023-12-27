@@ -35,8 +35,10 @@ public class CardController {
     public ResponseEntity<String> createCard(@RequestParam CardType type, @RequestParam CardColor color,
                                              Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
-        if (type == null || color == null) {
-            return ResponseEntity.status(400).body("Missing data");
+        if (type == null) {
+            return ResponseEntity.status(400).body("Missing type data");
+        } else if (color == null) {
+            return ResponseEntity.status(400).body("Missing color data");
         }
         if (!type.equals(CardType.DEBIT) && !type.equals(CardType.CREDIT)) {
             return ResponseEntity.status(400).body("Invalid card type");
@@ -44,9 +46,10 @@ public class CardController {
         if (!color.equals(CardColor.GOLD) && !color.equals(CardColor.SILVER) && !color.equals(CardColor.TITANIUM)) {
             return ResponseEntity.status(400).body("Invalid card color");
         }
-        if (cardRepository.findByTypeAndClientId(type, client.getId()).size() >= 3) {
-            return ResponseEntity.status(400).body("Maximum number of cards reached");
+        if (client.getCards().stream().anyMatch(card -> card.getType().equals(type) && card.getColor().equals(color))) {
+            return ResponseEntity.status(403).body("Maximum number of " + color + " " + type + " cards reached");
         }
+
         String number = generateCardNumber();
         String cvv = generateCvv();
         String cardHolder = client.getFirstName() + " " + client.getLastName();
@@ -70,10 +73,6 @@ public class CardController {
     }
 
     public String generateCvv() {
-        String cvv;
-        do {
-            cvv = String.format("%03d", new Random().nextInt(0, 1000));
-        } while (cardRepository.existsByCvv(cvv));
-        return cvv;
+        return String.format("%03d", new Random().nextInt(0, 1000));
     }
 }

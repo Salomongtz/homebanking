@@ -8,6 +8,7 @@ createApp({
         }
     },
     created() {
+
         this.loadData()
     },
     methods: {
@@ -16,12 +17,37 @@ createApp({
             axios.get('/api/clients/current')
                 .then(response => {
                     this.client = response.data
-                    this.accounts = this.client.accounts.toSorted((a, b) => (a.id) - (b.id))
+                    this.accounts = this.client.accounts.toSorted((a, b) => (a.creationDate) - (b.creationDate))
                     console.log(this.client)
-                    console.log(this.client.accounts);
+                    console.log(this.accounts);
                 })
-                .catch(error => console.log(error))
-        },logout() {
+                .catch(error => {
+                    console.log(error)
+                })
+        },
+        createAccount() {
+            axios.post("/api/clients/current/accounts")
+                .then(response => {
+                    console.log(response)
+                    this.loadData()
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Your new account has been created!',
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                    })
+                })
+                .catch(error => {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'You have reached the maximum number of accounts',
+                        icon: 'error',
+                        confirmButtonText: 'Go back'
+                    })
+                    console.log(error)
+                })
+        },
+        logout() {
             axios.post('/api/logout').then(response => window.location.href = '/web/index.html')
         }
     }

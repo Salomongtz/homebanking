@@ -1,6 +1,5 @@
 package com.mindhub.homebanking.configurations;
 
-
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +24,7 @@ public class SecurityConfig {
                         "/images/**", "/web/assets/styles/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/clients/current/accounts", "/api/clients/current/cards").hasAuthority("CLIENT")
-                .requestMatchers(HttpMethod.GET, "/api/clients/current","/api/clients/current/*","/web" +
+                .requestMatchers(HttpMethod.GET, "/api/clients/current", "/api/clients/current/*", "/web" +
                         "/assets/pages/**").hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.GET, "/api/clients/", "web/**").hasAuthority("ADMIN")
                 .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
@@ -43,7 +42,7 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .successHandler((request, response, authentication) -> {
                     clearAuthenticationAttributes(request);
-                    System.out.println("Hola"+authentication.getName());
+                    System.out.println("Hola" + authentication.getName());
                 })
                 .failureHandler((request, response, exception) -> response.sendError(401))
                 .permitAll());
