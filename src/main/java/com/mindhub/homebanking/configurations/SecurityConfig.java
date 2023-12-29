@@ -23,7 +23,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth -> auth.requestMatchers("/web/*", "/web/assets" +
                         "/images/**", "/web/assets/styles/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/clients/current/accounts", "/api/clients/current/cards").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.POST, "/api/clients/current/accounts", "/api/transactions", "/api/clients" +
+                        "/current/cards").hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.GET, "/api/clients/current", "/api/clients/current/*", "/web" +
                         "/assets/pages/**").hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.GET, "/api/clients/", "web/**").hasAuthority("ADMIN")

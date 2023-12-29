@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Accounts - Vertex Vanguard</title>
+    <title>Account - Vertex Vanguard</title>
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -67,7 +67,7 @@
                         </svg>
                         Loans
                     </a>
-                    <a href="./transactions.html"
+                    <a href="./transfers.html"
                         class="mr-2 mb-2 flex gap-2 items-center hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" width="24px" height="24px"
                             viewBox="0 0 24 24">
@@ -152,6 +152,9 @@
                             </tr>
                         </tbody>
                     </table>
+                </template>
+                <template v-else>
+                    <h3 class="text-xl">No transactions</h3>
                 </template>
             </div>
             <div class=" p-4 text-center">
