@@ -110,24 +110,26 @@
                 <div>
                     <label for="transferType" class="block">Transference Type:</label>
                     <select id="transferType" name="transferType"
-                        class="w-full p-2 border bg-cyan-600 border-gray-300 rounded-md" v-model="transferType">
+                        class="w-full p-2 border bg-cyan-600 border-gray-300 rounded-full px-4" v-model="transferType">
                         <option value="ownAccount">Transfer to own account</option>
                         <option value="thirdParty">Transfer to third party</option>
                     </select>
                 </div>
                 <div id="originAccountSection" class="mt-4">
                     <label for="originAccountNumber" class="block">Origin Account:</label>
-                    <select id="originAccountNumber" name="originAccountNumber"
-                        class="w-full p-2 border border-gray-300 rounded-md  bg-cyan-600" v-model="originAccountNumber">
+                    <select id="originAccountNumber"  name="originAccountNumber"
+                        class="w-full p-2 border border-gray-300 rounded-full px-4 bg-cyan-600" v-model="originAccountNumber">
                         <option value="">Select Origin Account</option>
-                        <option v-for="account in accounts" :value="account.number">{{account.number}}</option>
+                        <option v-for="account in accounts" :value="account.number">{{account.number}} ${{account.balance}}</option>
                     </select>
+                    <input v-show="originAccountNumber!=''" class="w-full mt-4 p-2 border border-gray-300 rounded-full px-4  bg-cyan-600" type="text" disabled v-model="originAccountBalance"></input>
+                    {{getBalance}}
                 </div>
 
                 <div id="ownAccountSection" class="mt-4" v-if="transferType === 'ownAccount'">
                     <label for="destinationAccountNumber" class="block">Destination Account:</label>
                     <select id="destinationAccountNumber" name="destinationAccountNumber"
-                        class="w-full p-2 border border-gray-300 rounded-md  bg-cyan-600"
+                        class="w-full p-2 border border-gray-300 rounded-full px-4 bg-cyan-600"
                         v-model="destinationAccountNumber">
                         <option value="">Select Destination Account</option>
                         <option v-for="account in accounts" :value="account.number">{{account.number}}</option>
@@ -137,24 +139,24 @@
                 <div id="thirdPartySection" class="mt-4" v-if="transferType === 'thirdParty'">
                     <label for="destinationAccountNumber" class="block">Account Number:</label>
                     <input type="text" id="destinationAccountNumber" name="destinationAccountNumber"
-                        class="w-full p-2 border border-gray-300 rounded-md  bg-cyan-600"
+                        class="w-full p-2 border border-gray-300 rounded-full px-4  bg-cyan-600"
                         v-model="destinationAccountNumber">
                 </div>
 
                 <div class="mt-4">
                     <label for="amount" class="block">Transfer Amount:</label>
                     <input type="number" id="amount" name="amount"
-                        class="w-full p-2 border border-gray-300 rounded-md  bg-cyan-600" v-model="amount">
+                        class="w-full p-2 border border-gray-300 rounded-full px-4  bg-cyan-600" v-model="amount">
                 </div>
 
                 <div class="mt-4">
                     <label for="description" class="block">Description:</label>
                     <input type="text" id="description" name="description"
-                        class="w-full p-2 border border-gray-300 rounded-md  bg-cyan-600" v-model="description">
+                        class="w-full p-2 border border-gray-300 rounded-full px-4  bg-cyan-600" v-model="description">
                 </div>
 
                 <button type="submit" @click.prevent="createTransfer"
-                    class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded-md">Send transfer</button>
+                    class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded-full px-4">Send transfer</button>
             </form>
 
             <div class=" p-4 text-center">

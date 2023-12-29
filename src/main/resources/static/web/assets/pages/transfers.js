@@ -9,6 +9,8 @@ createApp({
             amount: 0,
             description: '',
             accounts: [],
+            originAccount: '',
+            originAccountBalance: 0
         }
     },
     created() {
@@ -20,6 +22,8 @@ createApp({
                 .then((response) => {
                     this.accounts = response.data
                     console.log(this.accounts);
+                }).catch((error) => {
+                    console.log(error)
                 })
         },
         createTransfer() {
@@ -67,10 +71,20 @@ createApp({
                     Swal.fire("Transfer cancelled", "", "info");
                 }
             });
-
         },
         logout() {
             axios.post('/api/logout').then(response => window.location.href = '/web/index.html')
+        }
+    }, computed: {
+        getBalance() {
+            if (this.originAccountNumber!='') {
+                let balance = {}
+                balance = {...this.accounts.find(account => account.number == this.originAccountNumber)}
+                console.log(balance);
+                this.originAccountBalance ='Available: ' + balance.balance?.toLocaleString('en-US',{style:'currency', currency:
+                'USD'})
+            }
+            console.log(this.originAccountBalance)
         }
     }
 }
