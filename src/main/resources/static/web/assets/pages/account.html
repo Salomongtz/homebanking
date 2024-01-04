@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Accounts - Vertex Vanguard</title>
+    <title>Account - Vertex Vanguard</title>
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -14,10 +14,10 @@
         <header class="text-white p-4">
             <nav class="flex lg:flex-row flex-col items-center justify-around">
                 <div class="flex items-center gap-6" v-if="client">
-                    <img class="h-20" src="../images/logo.png" alt="Vertex">
-                    <h1 class="text-5xl text-white font-bold">Welcome, {{client.firstName}}!</h1>
+                    <img class="h-16" src="../images/logo.png" alt="Vertex">
+                    <h1 class="text-4xl text-white font-bold">Welcome, {{client.firstName}}!</h1>
                 </div>
-                <div class="mt-4 hidden lg:flex text-xl text-white">
+                <div class="mt-4 flex text-xl text-white">
                     <a href="./accounts.html"
                         class="mr-2 mb-2 flex gap-2 items-center bg-cyan-600 hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
                         <svg fill="#FFFFFF" height="24px" width="24px" version="1.1" id="Capa_1"
@@ -67,7 +67,7 @@
                         </svg>
                         Loans
                     </a>
-                    <a href="./transactions.html"
+                    <a href="./transfers.html"
                         class="mr-2 mb-2 flex gap-2 items-center hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" width="24px" height="24px"
                             viewBox="0 0 24 24">
@@ -78,7 +78,8 @@
                     </a>
                 </div>
                 <button @click="logout" class=" bg-red-400 rounded-full px-4 py-2 font-bold flex items-center gap-2"
-                    type="button">Logout<svg fill="#FFFFFF" height="24px" width="24px" version="1.1" id="Layer_1"
+                    type="button">Logout
+                    <svg fill="#FFFFFF" height="24px" width="24px" version="1.1" id="Layer_1"
                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                         viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
                         <g id="Exit_1_">
@@ -102,9 +103,9 @@
         </header>
         <main class="p-4 flex flex-col grow gap-4 items-center">
             <h1 class="text-3xl text-tealbg-cyan-600 font-bold">{{account.number}}</h1>
-            <div class="flex flex-col w-1/2 justify-center gap-4">
+            <div class="flex flex-col justify-center gap-4">
                 <template v-if="account.balance">
-                    <a class="" v-bind:href="'./account.html?id='+account.id">
+                    <a class="w-full" v-bind:href="'./account.html?id='+account.id">
                         <div class="bg-cyan-600 rounded-lg text-xl p-4">
                             <h3 class="text-lg font-bold mb-2"></h3>
                             <div class="flex flex-col">
@@ -151,6 +152,9 @@
                             </tr>
                         </tbody>
                     </table>
+                </template>
+                <template v-else>
+                    <h3 class="text-xl">No transactions</h3>
                 </template>
             </div>
             <div class=" p-4 text-center">

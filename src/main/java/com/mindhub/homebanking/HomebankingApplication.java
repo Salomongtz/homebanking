@@ -35,9 +35,9 @@ public class HomebankingApplication {
             clientRepository.save(salomon);
             clientRepository.save(admin);
 
-            Account account1 = new Account("VIN001", LocalDate.now(), 5000);
-            Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
-            Account account3 = new Account("VIN003", LocalDate.now(), 10000);
+            Account account1 = new Account("VIN-001234", LocalDate.now(), 5000);
+            Account account2 = new Account("VIN-002345", LocalDate.now().plusDays(1), 7500);
+            Account account3 = new Account("VIN-003456", LocalDate.now(), 10000);
 
             melba.addAccount(account1);
             melba.addAccount(account2);

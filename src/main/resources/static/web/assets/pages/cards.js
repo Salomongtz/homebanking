@@ -7,7 +7,7 @@ createApp({
             cards: [],
             credit: [],
             debit: [],
-            condicion:true
+            condicion: true
         }
     },
     created() {
@@ -25,8 +25,10 @@ createApp({
                     console.log(this.client)
                     console.log(this.client.cards);
                 })
-                .catch(error => console.log(error))
-        },logout() {
+                .catch(error => {
+                    console.log(error)
+                })
+        }, logout() {
             axios.post('/api/logout').then(response => window.location.href = '/web/index.html')
         }
     }
