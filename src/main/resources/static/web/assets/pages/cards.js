@@ -7,7 +7,7 @@ createApp({
             cards: [],
             credit: [],
             debit: [],
-            condicion:true
+            condicion: true
         }
     },
     created() {
@@ -16,7 +16,7 @@ createApp({
     methods: {
         loadData() {
             console.log("LoadData");
-            axios.get('/api/clients/1')
+            axios.get('/api/clients/current')
                 .then(response => {
                     this.client = response.data
                     this.cards = this.client.cards
@@ -25,7 +25,11 @@ createApp({
                     console.log(this.client)
                     console.log(this.client.cards);
                 })
-                .catch(error => console.log(error))
+                .catch(error => {
+                    console.log(error)
+                })
+        }, logout() {
+            axios.post('/api/logout').then(response => window.location.href = '/web/index.html')
         }
     }
 }).mount("#app")

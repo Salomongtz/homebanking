@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Accounts - Vertex Vanguard</title>
+    <title>Your Cards - Vertex Vanguard</title>
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -25,8 +25,8 @@
         <header class="text-white p-4">
             <nav class="flex lg:flex-row flex-col items-center justify-around">
                 <div class="flex items-center gap-6" v-if="client">
-                    <img class="h-20" src="../images/logo.png" alt="">
-                    <h1 class="text-5xl text-white font-bold">Welcome, {{client.firstName}}!</h1>
+                    <img class="h-16" src="../images/logo.png" alt="">
+                    <h1 class="text-4xl text-white font-bold">Vertex Vanguard</h1>
                 </div>
                 <div class="mt-4 flex text-xl text-white">
                     <a href="./accounts.html"
@@ -76,7 +76,7 @@
                             <path
                                 d="M16.417 9.583A7.917 7.917 0 1 1 8.5 1.666a7.917 7.917 0 0 1 7.917 7.917zm-3.325.418a4.584 4.584 0 0 0-1.112-3l.44-.44a.396.396 0 1 0-.56-.56l-.445.447a4.58 4.58 0 0 0-2.529-1.032v-.604l.323-.001a.396.396 0 0 0 0-.792h-.002l-1.436.005a.396.396 0 0 0 .001.792h.002l.32-.001v.601a4.602 4.602 0 1 0 4.998 4.585zm-.744 0A3.858 3.858 0 1 1 8.49 6.143a3.858 3.858 0 0 1 3.858 3.858zM6.322 7.833a3.067 3.067 0 1 0 2.168-.898 3.047 3.047 0 0 0-2.168.898zm3.561 2.954a1.005 1.005 0 0 1-.504.87 1.592 1.592 0 0 1-.483.204v.301a.396.396 0 0 1-.792 0v-.296a1.819 1.819 0 0 1-.307-.098 1.144 1.144 0 0 1-.438-.321.396.396 0 1 1 .598-.518.372.372 0 0 0 .134.104 1.015 1.015 0 0 0 .19.061 1.515 1.515 0 0 0 .205.025.91.91 0 0 0 .462-.127c.143-.093.143-.168.143-.205a.24.24 0 0 0-.059-.155.572.572 0 0 0-.15-.121.774.774 0 0 0-.19-.068.891.891 0 0 0-.187-.02 1.964 1.964 0 0 1-.328-.025 1.508 1.508 0 0 1-.424-.137 1.234 1.234 0 0 1-.405-.325 1.048 1.048 0 0 1-.241-.658 1.061 1.061 0 0 1 .527-.897 1.58 1.58 0 0 1 .47-.195v-.289a.396.396 0 1 1 .792 0v.3a1.832 1.832 0 0 1 .313.11 1.31 1.31 0 0 1 .384.265.396.396 0 0 1-.559.56.52.52 0 0 0-.15-.103 1.016 1.016 0 0 0-.194-.068l-.021-.005a1.003 1.003 0 0 0-.16-.027.895.895 0 0 0-.452.121.28.28 0 0 0-.158.228.269.269 0 0 0 .063.159.453.453 0 0 0 .145.116.727.727 0 0 0 .2.064 1.177 1.177 0 0 0 .198.015 1.691 1.691 0 0 1 .355.037 1.574 1.574 0 0 1 .39.141 1.363 1.363 0 0 1 .379.301 1.028 1.028 0 0 1 .254.676z" />
                         </svg>Loans</a>
-                    <a href="#"
+                    <a href="./transfers.html"
                         class="mr-2 mb-2 flex gap-2 items-center hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" width="24px" height="24px"
                             viewBox="0 0 24 24">
@@ -85,11 +85,33 @@
                         </svg>Transactions
                     </a>
                 </div>
+                <button @click="logout" class=" bg-red-400 rounded-full px-4 py-2 font-bold flex items-center gap-2"
+                    type="button">Logout<svg fill="#FFFFFF" height="24px" width="24px" version="1.1" id="Layer_1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        viewBox="0 0 64 64" enable-background="new 0 0 64 64" xml:space="preserve">
+                        <g id="Exit_1_">
+                            <path d="M52.4501991,28.7678509l-5-4.9990005c-0.3768997-0.3770008-0.9902-0.3770008-1.3671989,0
+                       c-0.3778992,0.3778992-0.3778992,0.9902,0,1.3671989l3.3171997,3.3164005H35.2666016v2h14.1320992l-3.3157005,3.3163986
+                       c-0.3778992,0.377903-0.3778992,0.9902,0,1.3672028c0.1884995,0.1884995,0.4365997,0.2831993,0.6835976,0.2831993
+                       c0.2471008,0,0.4951019-0.0946999,0.6836014-0.2831993l5-5.0010014c0.1817017-0.1816006,0.2831993-0.4277,0.2831993-0.6835995
+                       C52.7333984,29.1946507,52.6319008,28.9495506,52.4501991,28.7678509z" />
+                            <path d="M40.2666016,39.4524498c-0.5527,0-1,0.4473-1,1v10.7900009c0,1.0429993-0.8310013,2.2099991-1.9433022,2.2099991
+                       h-6.0566998V11.2394505V9.8677502L30.0191994,9.33395L14.0765009,2.56445l-0.2606955-0.112h23.507494
+                       c1.2168007,0,1.9433022,0.9921999,1.9433022,1.9511998v15.0487995c0,0.5527,0.4473,1,1,1c0.5527992,0,1-0.4473,1-1V4.4036498
+                       c0-2.1786997-1.7685013-3.9511998-3.9433022-3.9511998H12.2666006c-0.5215998,0-0.9358997,0.4029-0.9822998,0.9124
+                       L11.2666006,1.35725V1.45245V55.03405l17.1855011,7.3064003l2.8144989,1.2070999v-3.0951004v-5h6.0566998
+                       c2.3584023,0,3.9433022-2.1767998,3.9433022-4.2099991V40.4524498
+                       C41.2666016,39.8997498,40.8194008,39.4524498,40.2666016,39.4524498z M29.2665997,11.2394505v49.2129974l-15.999999-6.7766991
+                       V4.4524498l15.9906988,6.7728004l0.0093002,0.0038996V11.2394505z" />
+                        </g>
+                    </svg>
+                </button>
             </nav>
         </header>
         <main class="p-4 flex flex-col gap-4 items-center">
-            <h2 class="text-5xl text-white font-bold mb-8">Your Cards</h2>
-            <h2 class="text-5xl text-white font-bold mb-8">Credit</h2>
+            <h2 class="text-4xl text-white font-bold mb-8">Your Cards</h2>
+            <a class="text-3xl text-white font-bold bg-cyan-600 rounded-full px-4 py-2" href="./createCard.html">Create New Card</a>
+            <h2 class="text-3xl text-white font-bold mb-8">Credit</h2>
             <template v-if="credit.length > 0" v-for="card in credit">
                 <div class="flex flex-col relative w-96 font-share-tech" v-if="card.color === 'TITANIUM'"
                     class="flex flex-col gap-4">
@@ -188,7 +210,7 @@
                 </div>
             </template>
 
-            <h2 class="text-5xl text-white font-bold mb-8">Debit</h2>
+            <h2 class="text-3xl text-white font-bold mb-8">Debit</h2>
 
             <template v-if="debit.length > 0" v-for="card in debit">
                 <div class="flex flex-col relative w-96 font-share-tech" v-if="card.color === 'TITANIUM'"

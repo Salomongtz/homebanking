@@ -76,4 +76,16 @@ public class Account {
     public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", transactions=" + transactions +
+                ", client=" + client +
+                ", number='" + number + '\'' +
+                ", creationDate=" + creationDate +
+                ", balance=" + balance +
+                '}';
+    }
 }
