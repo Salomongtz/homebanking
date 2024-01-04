@@ -105,13 +105,13 @@
             </nav>
         </header>
         <main class="p-4 flex flex-col gap-4 items-center">
-            <h2 class="text-4xl text-white font-bold mb-8">Get your Credit/Debit card with Vertex</h2>
+            <h2 class="text-4xl text-white font-bold mb-8">Easily make transfers to other Vertex users or your own accounts</h2>
             <form class="max-w-md mx-auto">
                 <div>
                     <label for="transferType" class="block">Transference Type:</label>
                     <select id="transferType" name="transferType"
                         class="w-full p-2 border bg-cyan-600 border-gray-300 rounded-full px-4" v-model="transferType">
-                        <option value="ownAccount">Transfer to own account</option>
+                        <option selected value="ownAccount">Transfer to own account</option>
                         <option value="thirdParty">Transfer to third party</option>
                     </select>
                 </div>
@@ -119,7 +119,7 @@
                     <label for="originAccountNumber" class="block">Origin Account:</label>
                     <select id="originAccountNumber"  name="originAccountNumber"
                         class="w-full p-2 border border-gray-300 rounded-full px-4 bg-cyan-600" v-model="originAccountNumber">
-                        <option value="">Select Origin Account</option>
+                        <option selected value="">Select Origin Account</option>
                         <option v-for="account in accounts" :value="account.number">{{account.number}} ${{account.balance}}</option>
                     </select>
                     <input v-show="originAccountNumber!=''" class="w-full mt-4 p-2 border border-gray-300 rounded-full px-4  bg-cyan-600" type="text" disabled v-model="originAccountBalance"></input>
@@ -156,7 +156,7 @@
                 </div>
 
                 <button type="submit" @click.prevent="createTransfer"
-                    class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded-full px-4">Send transfer</button>
+                    class="mt-4 px-4 py-2 bg-cyan-600 text-white rounded-full">Send transfer</button>
             </form>
 
             <div class=" p-4 text-center">
