@@ -23,7 +23,7 @@ import java.time.LocalDate;
 @RequestMapping("/api/transactions")
 public class TransactionController {
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
     @Autowired
     private ClientRepository clientRepository;
     @Autowired
