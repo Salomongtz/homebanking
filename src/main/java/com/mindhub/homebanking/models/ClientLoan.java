@@ -8,7 +8,7 @@ public class ClientLoan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer amount;
+    private Double amount;
 
     private Integer payments;
 
@@ -20,7 +20,7 @@ public class ClientLoan {
     public ClientLoan() {
     }
 
-    public ClientLoan(Integer amount, Integer payments) {
+    public ClientLoan(Double amount, Integer payments) {
         this.amount = amount;
         this.payments = payments;
     }
@@ -29,11 +29,11 @@ public class ClientLoan {
         return id;
     }
 
-    public Integer getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

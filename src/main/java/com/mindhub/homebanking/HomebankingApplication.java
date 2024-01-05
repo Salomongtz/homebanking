@@ -47,11 +47,11 @@ public class HomebankingApplication {
             accountRepository.save(account2);
             accountRepository.save(account3);
 
-            Transaction t1 = new Transaction(TransactionType.DEBIT, -200, LocalDate.now(), "Regalo para sobrino.");
-            Transaction t2 = new Transaction(TransactionType.CREDIT, 2000, LocalDate.now(), "Boda Antonio.");
-            Transaction t3 = new Transaction(TransactionType.CREDIT, 900, LocalDate.now(), "Fiesta Melba.");
-            Transaction t4 = new Transaction(TransactionType.DEBIT, -1300, LocalDate.now(), "Seguro Auto.");
-            Transaction t5 = new Transaction(TransactionType.CREDIT, 499.99, LocalDate.now(), "PS5");
+            Transaction t1 = new Transaction(TransactionType.DEBIT, -200, LocalDate.now(), "Nephew's gift.");
+            Transaction t2 = new Transaction(TransactionType.CREDIT, 2000, LocalDate.now(), "Happy Birthday!.");
+            Transaction t3 = new Transaction(TransactionType.CREDIT, 3000, LocalDate.now(), "Merry Christmas!");
+            Transaction t4 = new Transaction(TransactionType.DEBIT, -1300, LocalDate.now(), "Car insurance.");
+            Transaction t5 = new Transaction(TransactionType.CREDIT, 499.99, LocalDate.now(), "PS5 sale.");
 
             account1.addTransaction(t1);
             account1.addTransaction(t2);
@@ -65,16 +65,16 @@ public class HomebankingApplication {
             transactionRepository.save(t4);
             transactionRepository.save(t5);
 
-            Loan mortgage = new Loan("Mortgage", 500000, Set.of(12, 24, 36, 48, 60));
-            Loan personal = new Loan("Personal", 100000, Set.of(6, 12, 24));
-            Loan automotive = new Loan("Automotive", 300000, Set.of(6, 12, 24, 36));
+            Loan mortgage = new Loan("Mortgage", 500000.0, Set.of(12, 24, 36, 48, 60));
+            Loan personal = new Loan("Personal", 100000.0, Set.of(6, 12, 24));
+            Loan automotive = new Loan("Automotive", 300000.0, Set.of(6, 12, 24, 36));
 
             loanRepository.saveAll(List.of(mortgage, personal, automotive));
 
-            ClientLoan melbaMortgage = new ClientLoan(400000, 60);
-            ClientLoan melbaPersonal = new ClientLoan(50000, 12);
-            ClientLoan salomonPersonal = new ClientLoan(100000, 24);
-            ClientLoan salomonAutomotive = new ClientLoan(400000, 60);
+            ClientLoan melbaMortgage = new ClientLoan(400000.0, 60);
+            ClientLoan melbaPersonal = new ClientLoan(50000.0, 12);
+            ClientLoan salomonPersonal = new ClientLoan(100000.0, 24);
+            ClientLoan salomonAutomotive = new ClientLoan(400000.0, 60);
 
             melba.addClientLoans(melbaMortgage);
             melba.addClientLoans(melbaPersonal);
