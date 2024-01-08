@@ -5,6 +5,7 @@ import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.records.LoanApplicationRecord;
 import com.mindhub.homebanking.repositories.*;
 import com.mindhub.homebanking.services.LoanService;
+import com.mindhub.homebanking.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,8 @@ public class LoanServiceImplement implements LoanService {
     ClientLoanRepository clientLoanRepository;
     @Autowired
     TransactionRepository transactionRepository;
+    @Autowired
+    TransactionService transactionService;
 
     @Override
     public List<Loan> getAllLoans() {
@@ -88,17 +91,10 @@ public class LoanServiceImplement implements LoanService {
         client.addClientLoans(loanApplication);
         clientLoanRepository.save(loanApplication);
 
-        createTransaction(loan.getName() + " loan approved", amount, account);
+        transactionService.createTransaction(loan.getName() + " loan approved", amount, account);
         return new ResponseEntity<String>("Loan created successfully!", HttpStatus.CREATED);
     }
 
-    public void createTransaction(String description, Double amount, Account account) {
-        TransactionType transactionType = amount > 0 ? TransactionType.CREDIT : TransactionType.DEBIT;
-        Transaction transaction = new Transaction(transactionType, amount,
-                LocalDate.now(), description);
-        account.addTransaction(transaction);
-        transactionRepository.save(transaction);
-        account.setBalance(account.getBalance() + amount);
-    }
+
 }
 
