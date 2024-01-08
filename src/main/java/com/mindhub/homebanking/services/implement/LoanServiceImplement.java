@@ -28,8 +28,6 @@ public class LoanServiceImplement implements LoanService {
     @Autowired
     ClientLoanRepository clientLoanRepository;
     @Autowired
-    TransactionRepository transactionRepository;
-    @Autowired
     TransactionService transactionService;
 
     @Override

@@ -13,9 +13,11 @@ public interface LoanService {
     public List<Loan> getAllLoans();
 
     public List<LoanDTO> getAllLoanDTO();
+
     public Loan getLoanById(Long id);
 
     public LoanDTO getLoanDTOById(Long id);
 
-    public ResponseEntity<String> createLoan(LoanApplicationRecord loanApplicationRecord, Authentication authentication);
+    public ResponseEntity<String> createLoan(LoanApplicationRecord loanApplicationRecord,
+                                             Authentication authentication);
 }
