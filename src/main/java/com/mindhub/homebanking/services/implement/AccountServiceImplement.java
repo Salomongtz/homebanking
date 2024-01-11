@@ -74,17 +74,20 @@ public class AccountServiceImplement implements AccountService {
     @Override
     public ResponseEntity<String> createAccount(Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
-        System.out.println(client.toString());
 
         if (client.getAccounts().size() >= 3) {
             return new ResponseEntity<>("Maximum number of accounts reached.", HttpStatus.FORBIDDEN);
         }
 
-        String number = generateAccountNumber();
-        Account account = new Account(number, LocalDate.now(), 0);
+        Account account = generateAccount();
         client.addAccount(account);
-        accountRepository.save(account);
+        saveToRepository(account);
         return new ResponseEntity<>(account + "\nCreated successfully!", HttpStatus.CREATED);
+    }
+    @Override
+    public Account generateAccount() {
+        String number = generateAccountNumber();
+        return new Account(number, LocalDate.now(), 0);
     }
 
     @Override

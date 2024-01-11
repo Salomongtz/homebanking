@@ -2,14 +2,13 @@ package com.mindhub.homebanking.dto;
 
 import com.mindhub.homebanking.models.Loan;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class LoanDTO {
     private final Long id;
     private final String name;
     private final Double maxAmount;
-    private Set<Integer> payments = new HashSet<>();
+    private final Set<Integer> payments;
 
     public LoanDTO(Loan loan) {
         this.id = loan.getId();

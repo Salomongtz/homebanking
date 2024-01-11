@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,11 +52,34 @@ public class LoanServiceImplement implements LoanService {
     @Override
     public ResponseEntity<String> createLoan(LoanApplicationRecord loanApplicationRecord,
                                              Authentication authentication) {
-        Loan loan = getLoanById(loanApplicationRecord.id());
-        Client client = clientRepository.findByEmail(authentication.getName());
-        Account account = accountRepository.findByNumber(loanApplicationRecord.accountNumber());
-        Double amount = loanApplicationRecord.amount();
+        try {
+            Loan loan = getLoanById(loanApplicationRecord.id());
+            Client client = clientRepository.findByEmail(authentication.getName());
+            Account account = accountRepository.findByNumber(loanApplicationRecord.accountNumber());
+            Double amount = loanApplicationRecord.amount();
 
+            ResponseEntity<String> FORBIDDEN = runVerifications(loanApplicationRecord, amount, loan, client);
+            if (FORBIDDEN != null) return FORBIDDEN;
+
+            createClientLoan(loanApplicationRecord, amount, loan, client);
+
+            transactionService.createTransaction(loan.getName() + " loan approved", amount, account);
+            return new ResponseEntity<>("Loan created successfully!", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+        }
+    }
+
+    private void createClientLoan(LoanApplicationRecord loanApplicationRecord, Double amount, Loan loan,
+                                  Client client) {
+        ClientLoan loanApplication = new ClientLoan(amount * 1.2, loanApplicationRecord.payments());
+        loan.addClientLoan(loanApplication);
+        client.addClientLoans(loanApplication);
+        clientLoanRepository.save(loanApplication);
+    }
+
+    private ResponseEntity<String> runVerifications(LoanApplicationRecord loanApplicationRecord, Double amount,
+                                                    Loan loan, Client client) {
         if (amount <= 0) {
             return new ResponseEntity<>("The amount must be greater than 0", HttpStatus.FORBIDDEN);
         }
@@ -83,14 +105,7 @@ public class LoanServiceImplement implements LoanService {
         if (!client.getAccounts().contains(accountRepository.findByNumber(loanApplicationRecord.accountNumber()))) {
             return new ResponseEntity<>("The account does not belong to the client", HttpStatus.FORBIDDEN);
         }
-
-        ClientLoan loanApplication = new ClientLoan(amount * 1.2, loanApplicationRecord.payments());
-        loan.addClientLoan(loanApplication);
-        client.addClientLoans(loanApplication);
-        clientLoanRepository.save(loanApplication);
-
-        transactionService.createTransaction(loan.getName() + " loan approved", amount, account);
-        return new ResponseEntity<String>("Loan created successfully!", HttpStatus.CREATED);
+        return null;
     }
 
 

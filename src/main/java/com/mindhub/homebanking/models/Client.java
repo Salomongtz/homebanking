@@ -11,6 +11,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName, lastName, email, password;
+    @Enumerated(EnumType.STRING)
     private RoleType role = RoleType.CLIENT;
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();

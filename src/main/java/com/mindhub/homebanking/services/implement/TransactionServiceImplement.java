@@ -30,6 +30,50 @@ public class TransactionServiceImplement implements TransactionService {
     @Autowired
     private ClientRepository clientRepository;
 
+    private static ResponseEntity<String> runVerifications(double transactionAmount, String transactionDescription,
+                                                           String originAccountNumber,
+                                                           String destinationAccountNumber, Account originAccount,
+                                                           Client client, Account destinationAccount) {
+        //Verificar que los parámetros no estén vacíos
+        if (originAccountNumber.isBlank()) {
+            return new ResponseEntity<>("The origin account number cannot be empty", HttpStatus.FORBIDDEN);
+        } else if (destinationAccountNumber.isBlank()) {
+            return new ResponseEntity<>("The destination account number cannot be empty", HttpStatus.FORBIDDEN);
+        }
+        if (transactionAmount <= 0) {
+            return new ResponseEntity<>("The amount must be greater than 0", HttpStatus.FORBIDDEN);
+        }
+        if (transactionDescription.isBlank()) {
+            return new ResponseEntity<>("The description cannot be empty", HttpStatus.FORBIDDEN);
+        }
+
+        //Verificar que los números de cuenta no sean iguales
+        if (originAccountNumber.equals(destinationAccountNumber)) {
+            return new ResponseEntity<>("Origin and destination accounts cannot be the same", HttpStatus.FORBIDDEN);
+        }
+
+        //Verificar que exista la cuenta de origen
+        if (originAccount == null) {
+            return new ResponseEntity<>("Origin account not found", HttpStatus.FORBIDDEN);
+        }
+
+        //Verificar que la cuenta de origen pertenezca al cliente autenticado
+        if (!client.getAccounts().contains(originAccount)) {
+            return new ResponseEntity<>("Origin account does not belong to the current client", HttpStatus.FORBIDDEN);
+        }
+
+        //Verificar que exista la cuenta de destino
+        if (destinationAccount == null) {
+            return new ResponseEntity<>("Destination account not found", HttpStatus.FORBIDDEN);
+        }
+
+        //Verificar que la cuenta de origen tenga el monto disponible.
+        if (originAccount.getBalance() < transactionAmount) {
+            return new ResponseEntity<>("Insufficient funds", HttpStatus.FORBIDDEN);
+        }
+        return null;
+    }
+
     @Override
     public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();
@@ -51,52 +95,17 @@ public class TransactionServiceImplement implements TransactionService {
     }
 
     @Override
-    public ResponseEntity<String> createTransaction(double transactionAmount, String transactionDescription, String originAccountNumber, String destinationAccountNumber, Authentication authentication) {
+    public ResponseEntity<String> createTransaction(double transactionAmount, String transactionDescription,
+                                                    String originAccountNumber, String destinationAccountNumber,
+                                                    Authentication authentication) {
         Account originAccount, destinationAccount;
-
-        //Verificar que los parámetros no estén vacíos
-        if (originAccountNumber.isBlank()) {
-            return new ResponseEntity<>("The origin account number cannot be empty", HttpStatus.FORBIDDEN);
-        } else if (destinationAccountNumber.isBlank()) {
-            return new ResponseEntity<>("The destination account number cannot be empty", HttpStatus.FORBIDDEN);
-        }
-        if (transactionAmount <= 0) {
-            return new ResponseEntity<>("The amount must be greater than 0", HttpStatus.FORBIDDEN);
-        }
-        if (transactionDescription.isBlank()) {
-            return new ResponseEntity<>("The description cannot be empty", HttpStatus.FORBIDDEN);
-        }
-
-        //Verificar que los números de cuenta no sean iguales
-        if (originAccountNumber.equals(destinationAccountNumber)) {
-            return new ResponseEntity<>("Origin and destination accounts cannot be the same", HttpStatus.FORBIDDEN);
-        }
-
-
         originAccount = accountRepository.findByNumber(originAccountNumber);
         destinationAccount = accountRepository.findByNumber(destinationAccountNumber);
-
-        //Verificar que exista la cuenta de origen
-        if (originAccount == null) {
-            return new ResponseEntity<>("Origin account not found", HttpStatus.FORBIDDEN);
-        }
-
         Client client = clientRepository.findByEmail(authentication.getName());
 
-        //Verificar que la cuenta de origen pertenezca al cliente autenticado
-        if (!client.getAccounts().contains(originAccount)) {
-            return new ResponseEntity<>("Origin account does not belong to the current client", HttpStatus.FORBIDDEN);
-        }
-
-        //Verificar que exista la cuenta de destino
-        if (destinationAccount == null) {
-            return new ResponseEntity<>("Destination account not found", HttpStatus.FORBIDDEN);
-        }
-
-        //Verificar que la cuenta de origen tenga el monto disponible.
-        if (originAccount.getBalance() < transactionAmount) {
-            return new ResponseEntity<>("Insufficient funds", HttpStatus.FORBIDDEN);
-        }
+        ResponseEntity<String> FORBIDDEN = runVerifications(transactionAmount, transactionDescription,
+                originAccountNumber, destinationAccountNumber, originAccount, client, destinationAccount);
+        if (FORBIDDEN != null) return FORBIDDEN;
 
         //Se deben crear dos transacciones, una con el tipo de transacción “DEBIT” asociada a la cuenta de origen y
         // la otra con el tipo de transacción “CREDIT” asociada a la cuenta de destino.

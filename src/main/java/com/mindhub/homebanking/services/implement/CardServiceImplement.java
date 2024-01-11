@@ -52,7 +52,7 @@ public class CardServiceImplement implements CardService {
 
     @Override
     public List<CardDTO> getAllCardDTO() {
-        return null;
+        return getAllCards().stream().map(CardDTO::new).collect(Collectors.toList());
     }
 
     @Override
@@ -68,6 +68,24 @@ public class CardServiceImplement implements CardService {
     @Override
     public ResponseEntity<String> createCard(CardType type, CardColor color, Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
+        ResponseEntity<String> Missing_type_data = runVerifications(type, color, client);
+        if (Missing_type_data != null) return Missing_type_data;
+        Card card = generateCard(type, color, client);
+        client.addCard(card);
+        saveToRepository(card);
+        return ResponseEntity.status(201).body("The card has been created: " + card);
+    }
+
+    private Card generateCard(CardType type, CardColor color, Client client) {
+        String number = generateCardNumber();
+        String cvv = generateCvv();
+        String cardHolder = client.getFirstName() + " " + client.getLastName();
+        LocalDate fromDate = LocalDate.now();
+        LocalDate thruDate = fromDate.plusYears(5);
+        return new Card(number, cvv, cardHolder, type, color, fromDate, thruDate);
+    }
+
+    private static ResponseEntity<String> runVerifications(CardType type, CardColor color, Client client) {
         if (type == null) {
             return ResponseEntity.status(400).body("Missing type data");
         } else if (color == null) {
@@ -82,16 +100,7 @@ public class CardServiceImplement implements CardService {
         if (client.getCards().stream().anyMatch(card -> card.getType().equals(type) && card.getColor().equals(color))) {
             return ResponseEntity.status(403).body("Maximum number of " + color + " " + type + " cards reached");
         }
-
-        String number = generateCardNumber();
-        String cvv = generateCvv();
-        String cardHolder = client.getFirstName() + " " + client.getLastName();
-        LocalDate fromDate = LocalDate.now();
-        LocalDate thruDate = fromDate.plusYears(5);
-        Card card = new Card(number, cvv, cardHolder, type, color, fromDate, thruDate);
-        client.addCard(card);
-        saveToRepository(card);
-        return ResponseEntity.status(201).body("The card has been created: " + card);
+        return null;
     }
 
     @Override

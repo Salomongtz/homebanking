@@ -12,7 +12,9 @@ public class Card {
     @ManyToOne
     private Client client;
     private String number, cvv, cardHolder;
+    @Enumerated(EnumType.STRING)
     private CardType type;
+    @Enumerated(EnumType.STRING)
     private CardColor color;
     private LocalDate fromDate, thruDate;
 

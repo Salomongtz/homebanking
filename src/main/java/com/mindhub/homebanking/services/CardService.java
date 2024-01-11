@@ -13,20 +13,20 @@ import java.util.Set;
 
 public interface CardService {
 
-    public String generateCardNumber();
+    String generateCardNumber();
 
-    public String generateCvv();
+    String generateCvv();
 
-    public List<Card> getAllCards();
+    List<Card> getAllCards();
 
-    public List<CardDTO> getAllCardDTO();
+    List<CardDTO> getAllCardDTO();
 
-    public Set<Card> getCardsFromClient(Authentication authentication);
+    Set<Card> getCardsFromClient(Authentication authentication);
 
-    public Set<CardDTO> getCardsDTOFromClient(Authentication authentication);
+    Set<CardDTO> getCardsDTOFromClient(Authentication authentication);
 
-    public ResponseEntity<String> createCard(@RequestParam CardType type, @RequestParam CardColor color,
-                                             Authentication authentication);
+    ResponseEntity<String> createCard(@RequestParam CardType type, @RequestParam CardColor color,
+                                      Authentication authentication);
 
-    public void saveToRepository(Card card);
+    void saveToRepository(Card card);
 }

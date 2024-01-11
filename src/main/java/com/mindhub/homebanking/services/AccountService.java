@@ -10,28 +10,29 @@ import java.util.Set;
 
 public interface AccountService {
 
-    public List<Account> getAllAccounts();
+    List<Account> getAllAccounts();
 
-    public List<AccountDTO> getAllAccountDTO();
+    List<AccountDTO> getAllAccountDTO();
 
-    public Account getAccountById(Long id);
+    Account getAccountById(Long id);
 
-    public AccountDTO getAccountDTOById(Long id);
+    AccountDTO getAccountDTOById(Long id);
 
-    public Account getAccountByNumber(String accountNumber);
+    Account getAccountByNumber(String accountNumber);
 
-    public AccountDTO getAccountDTOByNumber(String accountNumber);
+    AccountDTO getAccountDTOByNumber(String accountNumber);
 
-    public Set<Account> getAccountsFromClient(Authentication authentication);
+    Set<Account> getAccountsFromClient(Authentication authentication);
 
-    public Set<AccountDTO> getAccountsDTOFromClient(Authentication authentication);
+    Set<AccountDTO> getAccountsDTOFromClient(Authentication authentication);
 
-    public void updateBalance(Account account, Double amount);
+    void updateBalance(Account account, Double amount);
 
-    public ResponseEntity<String> createAccount(Authentication authentication);
+    ResponseEntity<String> createAccount(Authentication authentication);
 
-    public String generateAccountNumber();
+    String generateAccountNumber();
+    Account generateAccount();
 
-    public void saveToRepository(Account account);
+    void saveToRepository(Account account);
 
 }

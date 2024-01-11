@@ -63,28 +63,7 @@ public class ClientController {
             @RequestParam String firstName, @RequestParam String lastName,
             @RequestParam String email, @RequestParam String password) {
 
-        if (firstName.isBlank()) {
-            return new ResponseEntity<>("Missing NAME data", HttpStatus.BAD_REQUEST);
-        } else if (lastName.isBlank()) {
-            return new ResponseEntity<>("Missing LAST NAME data", HttpStatus.BAD_REQUEST);
-        } else if (email.isBlank()) {
-            return new ResponseEntity<>("Missing EMAIL data", HttpStatus.BAD_REQUEST);
-        } else if (password.isBlank()) {
-            return new ResponseEntity<>("Missing PASSWORD data", HttpStatus.BAD_REQUEST);
-        }
-
-        if (clientService.getClientByEmail(email) != null) {
-            return new ResponseEntity<>(email + " already in use", HttpStatus.FORBIDDEN);
-        }
-
-        Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-        Account account = new Account("VIN-" + String.format("%06d", new Random().nextInt(0, 1000000)),
-                LocalDate.now(), 0);
-        clientService.saveToRepository(client);
-        client.addAccount(account);
-        accountService.saveToRepository(account);
-
-        return new ResponseEntity<>(client + "\nCreated successfully!", HttpStatus.CREATED);
+       return clientService.register(firstName, lastName, email, password);
     }
 
 }

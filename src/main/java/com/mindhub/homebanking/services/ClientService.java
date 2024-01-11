@@ -2,25 +2,30 @@ package com.mindhub.homebanking.services;
 
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.models.Client;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
 public interface ClientService {
 
-    public List<Client> getAllClients();
+    List<Client> getAllClients();
 
-    public List<ClientDTO> getAllClientDTO();
+    List<ClientDTO> getAllClientDTO();
 
-    public Client getClientById(Long id);
+    Client getClientById(Long id);
 
-    public ClientDTO getClientDTOById(Long id);
+    ClientDTO getClientDTOById(Long id);
 
-    public Client getClientByEmail(String email);
+    Client getClientByEmail(String email);
 
-    public ClientDTO getClientDTOByEmail(String email);
+    ClientDTO getClientDTOByEmail(String email);
 
-    public ClientDTO getAuthenticatedClientDTO(Authentication authentication);
+    ClientDTO getAuthenticatedClientDTO(Authentication authentication);
+    ResponseEntity<Object> register(
+            @RequestParam String firstName, @RequestParam String lastName,
+            @RequestParam String email, @RequestParam String password);
 
-    public void saveToRepository(Client client);
+    void saveToRepository(Client client);
 }

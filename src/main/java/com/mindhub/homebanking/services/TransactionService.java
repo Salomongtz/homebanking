@@ -10,13 +10,13 @@ import java.util.List;
 
 public interface TransactionService {
 
-    public List<Transaction> getAllTransactions();
+    List<Transaction> getAllTransactions();
 
-    public List<TransactionDTO> getAllTransactionDTO();
+    List<TransactionDTO> getAllTransactionDTO();
 
-    public void createTransaction(String description, Double amount, Account account);
+    void createTransaction(String description, Double amount, Account account);
 
-    public ResponseEntity<String> createTransaction(double transactionAmount, String transactionDescription,
-                                                    String originAccountNumber, String destinationAccountNumber,
-                                                    Authentication authentication);
+    ResponseEntity<String> createTransaction(double transactionAmount, String transactionDescription,
+                                             String originAccountNumber, String destinationAccountNumber,
+                                             Authentication authentication);
 }
