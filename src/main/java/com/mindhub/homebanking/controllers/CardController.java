@@ -28,11 +28,4 @@ public class CardController {
         return cardService.createCard(type, color, authentication);
     }
 
-    public String generateCardNumber() {
-        return cardService.generateCardNumber();
-    }
-
-    public String generateCvv() {
-        return cardService.generateCvv();
-    }
 }
