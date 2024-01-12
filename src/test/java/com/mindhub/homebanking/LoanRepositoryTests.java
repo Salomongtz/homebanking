@@ -30,4 +30,10 @@ public class LoanRepositoryTests {
         assertThat(loans, hasItem(hasProperty("name", is("Personal"))));
     }
 
+    @Test
+    public void nonZeroOrNegativeLoans(){
+        List<Loan> loans = loanRepository.findAll();
+        assertThat("Max amount should never be negative or zero",loans, everyItem(hasProperty("maxAmount", greaterThan(0.0))));
+    }
+
 }

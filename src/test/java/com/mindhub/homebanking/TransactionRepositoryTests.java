@@ -33,11 +33,6 @@ public class TransactionRepositoryTests {
                 is(either(is(TransactionType.DEBIT)).or(is(TransactionType.CREDIT))))));
     }
 
-    private void typeIsEitherDebitOrCredit2(List<Transaction> transactions) {
-        for (Transaction transaction : transactions)
-            assertThat(transaction.getType().toString(), either(is("DEBIT")).or(is("CREDIT")));
-    }
-
     @Test
     public void descriptionIsNotNull() {
         List<Transaction> transactions = transactionRepository.findAll();
@@ -50,4 +45,6 @@ public class TransactionRepositoryTests {
         for (Transaction transaction : transactions)
             assertThat(transaction.getDescription().length(), is(lessThanOrEqualTo(255)));
     }
+
+
 }
