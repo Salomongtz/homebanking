@@ -14,9 +14,9 @@ import static org.hamcrest.Matchers.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class RepositoriesTests {
+public class LoanRepositoryTests {
     @Autowired
-    LoanRepository loanRepository;
+    private LoanRepository loanRepository;
 
     @Test
     public void existLoans(){

@@ -30,7 +30,6 @@ public interface AccountService {
 
     ResponseEntity<String> createAccount(Authentication authentication);
 
-    String generateAccountNumber();
     Account generateAccount();
 
     void saveToRepository(Account account);

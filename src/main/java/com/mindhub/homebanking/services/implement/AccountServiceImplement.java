@@ -6,6 +6,8 @@ import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.utils.AccountUtils;
+import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -79,24 +81,19 @@ public class AccountServiceImplement implements AccountService {
             return new ResponseEntity<>("Maximum number of accounts reached.", HttpStatus.FORBIDDEN);
         }
 
-        Account account = generateAccount();
+        Account account;
+        do {
+            account = generateAccount();
+        } while (accountRepository.existsByNumber(account.getNumber()));
         client.addAccount(account);
         saveToRepository(account);
         return new ResponseEntity<>(account + "\nCreated successfully!", HttpStatus.CREATED);
     }
-    @Override
-    public Account generateAccount() {
-        String number = generateAccountNumber();
-        return new Account(number, LocalDate.now(), 0);
-    }
 
     @Override
-    public String generateAccountNumber() {
-        String number;
-        do {
-            number = "VIN-" + String.format("%06d", new Random().nextInt(0, 1000000));
-        } while (accountRepository.existsByNumber(number));
-        return number;
+    public Account generateAccount() {
+        String number = AccountUtils.getAccountNumber();
+        return new Account(number, LocalDate.now(), 0);
     }
 
     @Override
