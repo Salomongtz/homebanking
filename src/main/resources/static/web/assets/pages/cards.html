@@ -110,13 +110,17 @@
         </header>
         <main class="p-4 flex flex-col gap-4 items-center">
             <h2 class="text-4xl text-white font-bold mb-8">Your Cards</h2>
-            <a class="text-3xl text-white font-bold bg-cyan-600 rounded-full px-4 py-2" href="./createCard.html">Create New Card</a>
+            <a class="text-3xl text-white font-bold bg-cyan-600 rounded-full px-4 py-2" href="./createCard.html">Create
+                New Card</a>
             <h2 class="text-3xl text-white font-bold mb-8">Credit</h2>
             <template v-if="credit.length > 0" v-for="card in credit">
-                <div class="flex flex-col relative w-96 font-share-tech" v-if="card.color === 'TITANIUM'"
-                    class="flex flex-col gap-4">
-                    <img class="relative object-cover w-full h-full rounded-xl" src="../images/cardTitanium.png"
-                        alt="Titanium">
+                <div class="flex flex-col relative w-96 font-share-tech">
+                    <img v-if="card.color === 'TITANIUM'" class=" relative object-cover w-full h-full rounded-xl"
+                        src="../images/cardTitanium.png" alt="Titanium">
+                    <img v-else-if="card.color === 'SILVER'" class=" relative object-cover w-full h-full rounded-xl"
+                        src="../images/cardSilver.png" alt="SILVER">
+                    <img v-else-if="card.color === 'GOLD'" class=" relative object-cover w-full h-full rounded-xl"
+                        src="../images/cardGold.png" alt="GOLD">
                     <div class="w-full h-full px-8 absolute flex flex-col top-6">
                         <div class="text-xl h-1/8 flex gap-8 items-center mb-2">
                             <img class="h-10 rounded-xl relative" src="../images/favicon.png" alt="Vertex">
@@ -143,7 +147,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col relative w-96 font-share-tech" v-if="card.color === 'GOLD'"
+                <!-- <div class="flex flex-col relative w-96 font-share-tech" v-if="card.color === 'GOLD'"
                     class="flex flex-col gap-4">
                     <img class="relative object-cover w-full h-full rounded-xl" src="../images/cardGold.png"
                         alt="Titanium">
@@ -202,7 +206,7 @@
                             </h3>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </template>
             <template v-else>
                 <div>
@@ -213,10 +217,13 @@
             <h2 class="text-3xl text-white font-bold mb-8">Debit</h2>
 
             <template v-if="debit.length > 0" v-for="card in debit">
-                <div class="flex flex-col relative w-96 font-share-tech" v-if="card.color === 'TITANIUM'"
-                    class="flex flex-col gap-4">
-                    <img class="relative object-cover w-full h-full rounded-xl" src="../images/cardTitanium.png"
-                        alt="Titanium">
+                <div class="flex flex-col relative w-96 font-share-tech">
+                    <img v-if="card.color === 'TITANIUM'" class=" relative object-cover w-full h-full rounded-xl"
+                        src="../images/cardTitanium.png" alt="Titanium">
+                    <img v-else-if="card.color === 'SILVER'" class=" relative object-cover w-full h-full rounded-xl"
+                        src="../images/cardSilver.png" alt="SILVER">
+                    <img v-else-if="card.color === 'GOLD'" class=" relative object-cover w-full h-full rounded-xl"
+                        src="../images/cardGold.png" alt="GOLD">
                     <div class="w-full h-full px-8 absolute flex flex-col top-6">
                         <div class="text-xl h-1/8 flex gap-8 items-center mb-2">
                             <img class="h-10 rounded-xl relative" src="../images/favicon.png" alt="Vertex">
@@ -243,7 +250,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="flex flex-col relative w-96 font-share-tech" v-if="card.color === 'GOLD'"
+                <!-- <div class="flex flex-col relative w-96 font-share-tech" v-if="card.color === 'GOLD'"
                     class="flex flex-col gap-4">
                     <img class="relative object-cover w-full h-full rounded-xl" src="../images/cardGold.png"
                         alt="Titanium">
@@ -302,7 +309,7 @@
                             </h3>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </template>
             <template v-else>
                 <div>
