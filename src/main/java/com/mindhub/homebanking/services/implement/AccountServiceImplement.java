@@ -59,6 +59,16 @@ public class AccountServiceImplement implements AccountService {
     }
 
     @Override
+    public Account getAccountByIdAndClientEmail(Long id, String email) {
+        return accountRepository.findByIdAndClientEmail(id, email);
+    }
+
+    @Override
+    public AccountDTO getAccountDTOByIdAndClientEmail(Long id, String email) {
+        return new AccountDTO(getAccountByIdAndClientEmail(id, email));
+    }
+
+    @Override
     public Set<Account> getAccountsFromClient(Authentication authentication) {
         return clientRepository.findByEmail(authentication.getName()).getAccounts();
     }

@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/clients/current/accounts", "/api/loans", "/api/transactions",
                         "/api/clients" +
                         "/current/cards").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.PATCH, "/api/clients/current/cards/*").hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.GET, "/api/loans", "/api/clients/current", "/api/clients/current/*",
                         "/web" +
                         "/assets/pages/**").hasAuthority("CLIENT")

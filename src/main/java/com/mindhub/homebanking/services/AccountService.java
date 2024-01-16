@@ -21,6 +21,8 @@ public interface AccountService {
     Account getAccountByNumber(String accountNumber);
 
     AccountDTO getAccountDTOByNumber(String accountNumber);
+    Account getAccountByIdAndClientEmail(Long id, String email);
+    AccountDTO getAccountDTOByIdAndClientEmail(Long id, String email);
 
     Set<Account> getAccountsFromClient(Authentication authentication);
 

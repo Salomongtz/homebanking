@@ -14,9 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -83,8 +81,7 @@ public class ClientServiceImplement implements ClientService {
     }
 
     private Client generateClient(String firstName, String lastName, String email, String password) {
-        Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-        return client;
+        return new Client(firstName, lastName, email, passwordEncoder.encode(password));
     }
 
     private ResponseEntity<Object> runVerifications(String firstName, String lastName, String email, String password) {

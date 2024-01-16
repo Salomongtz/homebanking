@@ -1,10 +1,8 @@
 package com.mindhub.homebanking.services;
 
+import com.mindhub.homebanking.dto.AccountDTO;
 import com.mindhub.homebanking.dto.CardDTO;
-import com.mindhub.homebanking.models.Card;
-import com.mindhub.homebanking.models.CardColor;
-import com.mindhub.homebanking.models.CardType;
-import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.models.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,13 +16,19 @@ public interface CardService {
 
     List<CardDTO> getAllCardDTO();
 
-    Set<Card> getCardsFromClient(Authentication authentication);
+    Set<Card> getActiveCardsFromClient(Authentication authentication);
 
     Set<CardDTO> getCardsDTOFromClient(Authentication authentication);
 
     ResponseEntity<String> createCard(@RequestParam CardType type, @RequestParam CardColor color,
                                       Authentication authentication);
-    Card generateCard(CardType type, CardColor color, Client client);
+    ResponseEntity<String> deleteCard(@RequestParam Long id, Authentication authentication);
+
+
+    Card getCard(CardType type, CardColor color, Client client);
+
+    Card getCardByIdAndClientEmail(Long id, String email);
+    CardDTO getCardDTOByIdAndClientEmail(Long id, String email);
 
     void saveToRepository(Card card);
 }

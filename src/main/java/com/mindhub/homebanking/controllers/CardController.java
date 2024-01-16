@@ -17,7 +17,7 @@ public class CardController {
     @Autowired
     private CardService cardService;
 
-    @GetMapping("/cards")
+    @GetMapping("/clients/current/cards")
     public Set<CardDTO> getCards(Authentication authentication) {
         return cardService.getCardsDTOFromClient(authentication);
     }
@@ -26,6 +26,11 @@ public class CardController {
     public ResponseEntity<String> createCard(@RequestParam CardType type, @RequestParam CardColor color,
                                              Authentication authentication) {
         return cardService.createCard(type, color, authentication);
+    }
+
+    @PatchMapping("/clients/current/cards/{id}")
+    public ResponseEntity<String> deleteCard(@PathVariable Long id, Authentication authentication) {
+        return cardService.deleteCard(id, authentication);
     }
 
 }
