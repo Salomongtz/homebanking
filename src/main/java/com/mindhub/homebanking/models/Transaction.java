@@ -14,15 +14,17 @@ public class Transaction {
     private Account account;
 
     private TransactionType type;
-    private double amount;
+    private double amount, newBalance;
     private LocalDate date;
     private String description;
 
-    public Transaction(TransactionType type, double amount, LocalDate date, String description) {
+
+    public Transaction(TransactionType type, double amount, LocalDate date, String description, double newBalance) {
         this.type = type;
         this.amount = amount;
         this.date = date;
         this.description = description;
+        this.newBalance = newBalance;
     }
 
     public Transaction() {
@@ -70,6 +72,14 @@ public class Transaction {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public double getNewBalance() {
+        return newBalance;
+    }
+
+    public void setNewBalance(double newBalance) {
+        this.newBalance = newBalance;
     }
 
     @Override

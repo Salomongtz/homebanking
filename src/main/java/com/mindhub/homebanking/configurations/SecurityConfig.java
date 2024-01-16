@@ -31,7 +31,7 @@ public class SecurityConfig {
                         "/web" +
                         "/assets/pages/**").hasAuthority("CLIENT")
                 .requestMatchers(HttpMethod.GET, "/api/clients/", "web/**").hasAuthority("ADMIN")
-                .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
+                .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().denyAll());
 
         http.csrf(AbstractHttpConfigurer::disable);

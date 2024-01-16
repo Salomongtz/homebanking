@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class TransactionDTO {
     private final Long id;
     private final TransactionType type;
-    private final double amount;
+    private final double amount, newBalance;
     private final LocalDate date;
     private final String description;
 
@@ -18,6 +18,7 @@ public class TransactionDTO {
         this.amount = transaction.getAmount();
         this.date = transaction.getDate();
         this.description = transaction.getDescription();
+        this.newBalance = transaction.getNewBalance();
     }
 
     public Long getId() {
@@ -38,5 +39,9 @@ public class TransactionDTO {
 
     public String getDescription() {
         return description;
+    }
+
+    public double getNewBalance() {
+        return newBalance;
     }
 }

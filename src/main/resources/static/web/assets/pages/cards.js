@@ -8,7 +8,6 @@ createApp({
             credit: [],
             debit: [],
             condicion: true,
-            today: new Date()
         }
     },
     created() {
@@ -26,35 +25,67 @@ createApp({
                     this.credit = this.cards.filter(card => card.type === "CREDIT")
                     console.log(this.client)
                     console.log(this.client.cards);
-                    console.log(this.formatDate(this.today));
                 })
                 .catch(error => {
                     console.log(error)
                 })
         },
         deleteCard(id) {
-            axios.patch(`/api/clients/current/cards/${id}`)
-                .then(response => {
-                    console.log(response)
-                    this.loadData()
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
-        formatDate(dateString) {
-            const date = new Date(dateString);
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+            Swal.fire({
+                title: "Are you sure?",
+                html: `
+                <div class="text-center text-white">
+                  <strong>Loan Type:</strong> This card will be deleted<br>
+                  <strong>Card Number:</strong> ${id} <br>
+                  <strong>This cannot be undone!</strong>
+                </div>
+              `,
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    axios.patch(`/api/clients/current/cards/${id}`)
+                        .then(response => {
+                            console.log(response)
+                            this.loadData()
+                        })
+                        .catch(error => {
+                            console.log(error)
+                        })
+                        .then((response) => {
+                            console.log(response)
+                            Swal.fire({
+                                title: 'Success!',
+                                text: 'Card deleted!',
+                                icon: 'success',
+                                confirmButtonText: 'Cool'
+                            })
+                            this.loadData()
+                        })
+                        .catch((error) => {
+                            let msg = "Something happened. Please try again."
+                            if (error.response.data != null) {
+                                msg = error.response.data
+                            }
+                            Swal.fire({
+                                title: 'Error!',
+                                text: msg,
+                                icon: 'error',
+                                confirmButtonText: 'Go back'
+                            })
+                            console.log(error)
+                        })
+                } else {
+                    Swal.fire("Deletion cancelled", "", "info");
+                }
+            })
         },
         isCardExpired(thruDate) {
             const currentDate = new Date();
             const cardDate = new Date(thruDate);
-            console.log(currentDate);
-            console.log(cardDate);
-            console.log(cardDate < currentDate);
             return cardDate < currentDate;
         },
         logout() {

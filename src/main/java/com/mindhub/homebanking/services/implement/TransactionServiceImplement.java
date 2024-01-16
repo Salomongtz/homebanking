@@ -85,12 +85,13 @@ public class TransactionServiceImplement implements TransactionService {
 
     @Override
     public void createTransaction(String description, Double amount, Account account) {
+        account.setBalance(account.getBalance() + amount);
         TransactionType transactionType = amount > 0 ? TransactionType.CREDIT : TransactionType.DEBIT;
         Transaction transaction = new Transaction(transactionType, amount,
-                LocalDate.now(), description);
+                LocalDate.now(), description, account.getBalance());
         account.addTransaction(transaction);
         transactionRepository.save(transaction);
-        account.setBalance(account.getBalance() + amount);
+
     }
 
     @Override
@@ -106,19 +107,21 @@ public class TransactionServiceImplement implements TransactionService {
                 originAccountNumber, destinationAccountNumber, originAccount, client, destinationAccount);
         if (FORBIDDEN != null) return FORBIDDEN;
 
+        //A la cuenta de origen se le restará el monto indicado en la petición y a la cuenta de destino se le sumará
+        // el mismo monto.
+        originAccount.setBalance(originAccount.getBalance() - transactionAmount);
+        destinationAccount.setBalance(destinationAccount.getBalance() + transactionAmount);
+
         //Se deben crear dos transacciones, una con el tipo de transacción “DEBIT” asociada a la cuenta de origen y
         // la otra con el tipo de transacción “CREDIT” asociada a la cuenta de destino.
         Transaction originTransaction = new Transaction(TransactionType.DEBIT, -transactionAmount, LocalDate.now(),
-                transactionDescription);
+                transactionDescription, originAccount.getBalance());
         Transaction destinationTransaction = new Transaction(TransactionType.CREDIT, transactionAmount,
-                LocalDate.now(), transactionDescription);
+                LocalDate.now(), transactionDescription, destinationAccount.getBalance());
 
-        //A la cuenta de origen se le restará el monto indicado en la petición y a la cuenta de destino se le sumará
-        // el mismo monto.
         originAccount.addTransaction(originTransaction);
         destinationAccount.addTransaction(destinationTransaction);
-        originAccount.setBalance(originAccount.getBalance() - transactionAmount);
-        destinationAccount.setBalance(destinationAccount.getBalance() + transactionAmount);
+
         transactionRepository.save(originTransaction);
         transactionRepository.save(destinationTransaction);
 

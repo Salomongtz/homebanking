@@ -133,7 +133,8 @@
                                 <th class="rounded-tl-lg py-2 px-4 bg-cyan-600 text-white text-2xl">Type</th>
                                 <th class="py-2 px-4 bg-cyan-600 text-white">Amount</th>
                                 <th class="py-2 px-4 bg-cyan-600 text-white">Date</th>
-                                <th class="rounded-tr-lg py-2 px-4 bg-cyan-600 text-white">Description</th>
+                                <th class="py-2 px-4 bg-cyan-600 text-white">Description</th>
+                                <th class="rounded-tr-lg py-2 px-4 bg-cyan-600 text-white">New Balance</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -149,6 +150,7 @@
                                     format(transaction.amount)}}</td>
                                 <td class="py-2 px-4">{{transaction.date}}</td>
                                 <td class="py-2 px-4">{{transaction.description}}</td>
+                                <td class="py-2 px-4">{{transaction.newBalance}}</td>
                             </tr>
                         </tbody>
                     </table>

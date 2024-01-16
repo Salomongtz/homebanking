@@ -66,6 +66,7 @@ createApp({
                                 icon: 'success',
                                 confirmButtonText: 'Cool'
                             })
+                            this.loadData()
                         })
                         .catch((error) => {
                             let msg = "Something happened. Please try again."
@@ -83,7 +84,7 @@ createApp({
                 } else {
                     Swal.fire("Transfer cancelled", "", "info");
                 }
-            });
+            })
         },
         logout() {
             axios.post('/api/logout').then(response => window.location.href = '/web/index.html')
