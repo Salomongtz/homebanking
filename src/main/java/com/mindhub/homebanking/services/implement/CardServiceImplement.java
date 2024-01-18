@@ -1,10 +1,9 @@
 package com.mindhub.homebanking.services.implement;
 
 import com.mindhub.homebanking.dto.CardDTO;
-import com.mindhub.homebanking.models.Card;
-import com.mindhub.homebanking.models.CardColor;
-import com.mindhub.homebanking.models.CardType;
-import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.records.CardPaymentRecord;
+import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.CardService;
@@ -26,6 +25,8 @@ public class CardServiceImplement implements CardService {
     private CardRepository cardRepository;
     @Autowired
     private ClientRepository clientRepository;
+    @Autowired
+    private AccountRepository accountRepository;
 
     private static ResponseEntity<String> runVerifications(CardType type, CardColor color, Client client) {
         if (type == null) {
@@ -148,5 +149,42 @@ public class CardServiceImplement implements CardService {
     @Override
     public void saveToRepository(Card card) {
         cardRepository.save(card);
+    }
+
+    @Override
+    public ResponseEntity<String> payWithCard(CardPaymentRecord cardPaymentRecord) {
+        Card card = cardRepository.findByNumber(cardPaymentRecord.number());
+        Client client = card.getClient();
+        Set<Account> clientAccounts =
+                client.getAccounts().stream().filter(Account::isActive).collect(Collectors.toSet());
+        ResponseEntity<String> verifications = paymentVerifications(card, client, clientAccounts);
+        if (verifications != null) return verifications;
+
+        for (Account account : clientAccounts) {
+            if (account.getBalance().compareTo(cardPaymentRecord.amount()) >= 0) {
+                account.setBalance(account.getBalance() - cardPaymentRecord.amount());
+                accountRepository.save(account);
+                return ResponseEntity.status(200).body("Payment done successfully." + cardPaymentRecord.amount() + " " +
+                        "was deducted from" + account.getNumber() + " account" + " of " + client.getFirstName() + " " +
+                        client.getLastName() + " client" + ". New balance is " + account.getBalance());
+            }
+        }
+        return ResponseEntity.status(403).body("Insufficient funds");
+    }
+
+    private ResponseEntity<String> paymentVerifications(Card card, Client client, Set<Account> clientAccounts) {
+        if (card == null) {
+            return ResponseEntity.status(404).body("Card not found");
+        }
+        if (!card.isActive()) {
+            return ResponseEntity.status(403).body("That card is not active anymore");
+        }
+        if (card.getThruDate().isBefore(LocalDate.now())) {
+            return ResponseEntity.status(403).body("That card is expired");
+        }
+        if (clientAccounts.isEmpty()) {
+            return ResponseEntity.status(403).body("The client has no accounts");
+        }
+        return null;
     }
 }

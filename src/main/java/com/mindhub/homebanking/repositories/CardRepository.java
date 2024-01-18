@@ -19,4 +19,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
             "SELECT cl.id FROM Client cl " +
             "WHERE cl.email LIKE :email)")
     Card findByIdAndClientEmail(@Param("id") Long id, @Param("email") String email);
+
+    Card findByNumber(String number);
 }

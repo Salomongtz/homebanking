@@ -3,10 +3,12 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dto.CardDTO;
 import com.mindhub.homebanking.models.CardColor;
 import com.mindhub.homebanking.models.CardType;
+import com.mindhub.homebanking.records.CardPaymentRecord;
 import com.mindhub.homebanking.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -26,6 +28,13 @@ public class CardController {
     public ResponseEntity<String> createCard(@RequestParam CardType type, @RequestParam CardColor color,
                                              Authentication authentication) {
         return cardService.createCard(type, color, authentication);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/cards/payments")
+    @Transactional
+    public ResponseEntity<String> payWithCard(@RequestBody CardPaymentRecord cardPaymentRecord){
+        return cardService.payWithCard(cardPaymentRecord);
     }
 
     @PatchMapping("/clients/current/cards/{id}")

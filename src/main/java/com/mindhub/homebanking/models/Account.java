@@ -17,7 +17,7 @@ public class Account {
     private Client client;
     private String number;
     private LocalDate creationDate;
-    private double balance;
+    private Double balance;
     private boolean active=true;
     @Enumerated(EnumType.STRING)
     private AccountType type;
@@ -53,7 +53,7 @@ public class Account {
         return creationDate;
     }
 
-    public double getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
