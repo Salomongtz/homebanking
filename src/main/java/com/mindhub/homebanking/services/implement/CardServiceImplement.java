@@ -3,7 +3,6 @@ package com.mindhub.homebanking.services.implement;
 import com.mindhub.homebanking.dto.CardDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.records.CardPaymentRecord;
-import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.CardService;
@@ -26,8 +25,6 @@ public class CardServiceImplement implements CardService {
     private CardRepository cardRepository;
     @Autowired
     private ClientRepository clientRepository;
-    @Autowired
-    private AccountRepository accountRepository;
     @Autowired
     private TransactionService transactionService;
 
@@ -160,7 +157,7 @@ public class CardServiceImplement implements CardService {
         Client client = card.getClient();
         Set<Account> clientAccounts =
                 client.getAccounts().stream().filter(Account::isActive).collect(Collectors.toSet());
-        ResponseEntity<String> verifications = paymentVerifications(card, client, clientAccounts);
+        ResponseEntity<String> verifications = paymentVerifications(card, clientAccounts);
         if (verifications != null) return verifications;
 
         for (Account account : clientAccounts) {
@@ -175,7 +172,7 @@ public class CardServiceImplement implements CardService {
         return ResponseEntity.status(403).body("Insufficient funds");
     }
 
-    private ResponseEntity<String> paymentVerifications(Card card, Client client, Set<Account> clientAccounts) {
+    private ResponseEntity<String> paymentVerifications(Card card, Set<Account> clientAccounts) {
         if (card == null) {
             return ResponseEntity.status(404).body("Card not found");
         }
