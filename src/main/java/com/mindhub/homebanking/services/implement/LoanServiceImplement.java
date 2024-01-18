@@ -86,6 +86,18 @@ public class LoanServiceImplement implements LoanService {
         if (loanRecord.payments().isEmpty()) {
             return new ResponseEntity<>("Payments cannot be negative", HttpStatus.FORBIDDEN);
         }
+        if (loanRecord.payments().stream().anyMatch(payment -> payment < 0)) {
+            return new ResponseEntity<>("Payments cannot be negative", HttpStatus.FORBIDDEN);
+        }
+        if (loanRecord.payments().stream().distinct().count() != loanRecord.payments().size()) {
+            return new ResponseEntity<>("Payments cannot be duplicated", HttpStatus.FORBIDDEN);
+        }
+        if(loanRecord.interestRate()>2){
+            return new ResponseEntity<>("Interest rate cannot be greater than 2", HttpStatus.FORBIDDEN);
+        }
+        if (loanRecord.interestRate()<1){
+            return new ResponseEntity<>("Interest rate cannot be less than 1", HttpStatus.FORBIDDEN);
+        }
         Loan newLoan = new Loan(loanRecord.name(), loanRecord.maxAmount(), loanRecord.payments(),
                 loanRecord.interestRate());
         loanRepository.save(newLoan);
