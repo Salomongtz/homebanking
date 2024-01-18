@@ -7,6 +7,7 @@ import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.CardService;
+import com.mindhub.homebanking.services.TransactionService;
 import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,8 @@ public class CardServiceImplement implements CardService {
     private ClientRepository clientRepository;
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private TransactionService transactionService;
 
     private static ResponseEntity<String> runVerifications(CardType type, CardColor color, Client client) {
         if (type == null) {
@@ -162,8 +165,8 @@ public class CardServiceImplement implements CardService {
 
         for (Account account : clientAccounts) {
             if (account.getBalance().compareTo(cardPaymentRecord.amount()) >= 0) {
-                account.setBalance(account.getBalance() - cardPaymentRecord.amount());
-                accountRepository.save(account);
+                transactionService.createTransaction(cardPaymentRecord.description(), -cardPaymentRecord.amount(), account);
+
                 return ResponseEntity.status(200).body("Payment done successfully." + cardPaymentRecord.amount() + " " +
                         "was deducted from" + account.getNumber() + " account" + " of " + client.getFirstName() + " " +
                         client.getLastName() + " client" + ". New balance is " + account.getBalance());

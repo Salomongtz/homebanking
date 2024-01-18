@@ -90,6 +90,7 @@ public class TransactionServiceImplement implements TransactionService {
         Transaction transaction = new Transaction(transactionType, amount,
                 LocalDate.now(), description, account.getBalance());
         account.addTransaction(transaction);
+        accountRepository.save(account);
         transactionRepository.save(transaction);
 
     }
@@ -124,6 +125,8 @@ public class TransactionServiceImplement implements TransactionService {
 
         transactionRepository.save(originTransaction);
         transactionRepository.save(destinationTransaction);
+        accountRepository.save(originAccount);
+        accountRepository.save(destinationAccount);
 
         return new ResponseEntity<>("Transaction completed!", HttpStatus.CREATED);
     }
