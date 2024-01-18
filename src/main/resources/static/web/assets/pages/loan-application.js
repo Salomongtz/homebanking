@@ -12,7 +12,8 @@ createApp({
             originAccountBalance: 0,
             loans: [],
             loanType: '',
-            payments: 1
+            payments: 1,
+            interest: 1.2
         }
     },
     created() {
@@ -34,15 +35,23 @@ createApp({
                 })
         },
         createLoan() {
+            console.log(this.loanType)
             Swal.fire({
                 title: "Please confirm the following data is correct: ",
                 html: `
                 <div class="text-center text-white">
                   <strong>Loan Type:</strong> ${this.loanType.name}<br>
+                  <strong>Interest:</strong> ${Math.round(this.loanType.interestRate % 1 * 100)}%<br>
                   <strong>Destination account:</strong> ${this.destinationAccountNumber}<br>
-                  <strong>Amount:</strong> ${this.amount}<br>
+                  <strong>Amount:</strong> ${this.amount.toLocaleString('en-US', {
+                    style: 'currency', currency:
+                        'USD'
+                })}<br>
                   <strong>Payments:</strong> ${this.payments}<br>
-                  <strong>Payment amount:</strong> ${this.payments*1.2}
+                  <strong>Monthly payment:</strong> ${((this.amount * this.loanType.interestRate) / this.payments).toLocaleString('en-US', {
+                    style: 'currency', currency:
+                        'USD'
+                })}
                 </div>
               `,
                 icon: "question",

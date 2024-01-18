@@ -2,12 +2,12 @@ package com.mindhub.homebanking.services.implement;
 
 import com.mindhub.homebanking.dto.AccountDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.utils.AccountUtils;
-import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -75,7 +74,8 @@ public class AccountServiceImplement implements AccountService {
 
     @Override
     public Set<AccountDTO> getAccountsDTOFromClient(Authentication authentication) {
-        return getAccountsFromClient(authentication).stream().map(AccountDTO::new).collect(Collectors.toSet());
+        return getAccountsFromClient(authentication).stream().filter(Account::isActive)
+                .map(AccountDTO::new).collect(Collectors.toSet());
     }
 
     @Override
@@ -84,16 +84,17 @@ public class AccountServiceImplement implements AccountService {
     }
 
     @Override
-    public ResponseEntity<String> createAccount(Authentication authentication) {
+    public ResponseEntity<String> createAccount(Authentication authentication, AccountType type) {
         Client client = clientRepository.findByEmail(authentication.getName());
 
-        if (client.getAccounts().size() >= 3) {
+        if (client.getAccounts().stream().filter(Account::isActive).toList().size() >= 3) {
             return new ResponseEntity<>("Maximum number of accounts reached.", HttpStatus.FORBIDDEN);
         }
 
         Account account;
+
         do {
-            account = generateAccount();
+            account = generateAccount(type);
         } while (accountRepository.existsByNumber(account.getNumber()));
         client.addAccount(account);
         saveToRepository(account);
@@ -101,9 +102,32 @@ public class AccountServiceImplement implements AccountService {
     }
 
     @Override
-    public Account generateAccount() {
+    public Account generateAccount(AccountType type) {
         String number = AccountUtils.getAccountNumber();
-        return new Account(number, LocalDate.now(), 0);
+        return new Account(number, LocalDate.now(), 0, type);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteAccount(Long id, Authentication authentication) {
+        Account account = getAccountByIdAndClientEmail(id, authentication.getName());
+
+        if (account == null) {
+            return new ResponseEntity<>("Account not found", HttpStatus.NOT_FOUND);
+        }
+        if (account.getClient().getAccounts().stream().filter(Account::isActive).toList().size() == 1) {
+            return new ResponseEntity<>("Cannot delete: Client must have at least one active account",
+                    HttpStatus.FORBIDDEN);
+        }
+        if (!account.isActive()) {
+            return new ResponseEntity<>("Account already deleted", HttpStatus.FORBIDDEN);
+        }
+        if (account.getBalance() > 0) {
+            return new ResponseEntity<>("The account has a balance, please withdraw it first", HttpStatus.FORBIDDEN);
+        }
+
+        account.setActive(false);
+        saveToRepository(account);
+        return ResponseEntity.status(HttpStatus.OK).body("Account deleted successfully");
     }
 
     @Override

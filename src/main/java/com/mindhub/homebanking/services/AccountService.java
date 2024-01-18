@@ -2,6 +2,7 @@ package com.mindhub.homebanking.services;
 
 import com.mindhub.homebanking.dto.AccountDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 
@@ -30,9 +31,10 @@ public interface AccountService {
 
     void updateBalance(Account account, Double amount);
 
-    ResponseEntity<String> createAccount(Authentication authentication);
+    ResponseEntity<String> createAccount(Authentication authentication, AccountType type);
+    ResponseEntity<String> deleteAccount(Long id, Authentication authentication);
 
-    Account generateAccount();
+    Account generateAccount(AccountType type);
 
     void saveToRepository(Account account);
 

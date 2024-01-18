@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dto.LoanDTO;
 import com.mindhub.homebanking.records.LoanApplicationRecord;
+import com.mindhub.homebanking.records.LoanRecord;
 import com.mindhub.homebanking.services.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,4 +31,8 @@ public class LoanController {
         return loanService.createLoan(loanApplicationRecord, authentication);
     }
 
+    @PostMapping("/new")
+    public ResponseEntity<String> newLoanType(@RequestBody LoanRecord loanRecord) {
+        return loanService.newLoanType(loanRecord);
+    }
 }

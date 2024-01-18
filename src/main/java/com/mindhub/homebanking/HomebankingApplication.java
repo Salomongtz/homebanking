@@ -11,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class HomebankingApplication {
@@ -35,9 +34,9 @@ public class HomebankingApplication {
             clientRepository.save(salomon);
             clientRepository.save(admin);
 
-            Account account1 = new Account("VIN-001234", LocalDate.now(), 5000);
-            Account account2 = new Account("VIN-002345", LocalDate.now().plusDays(1), 7500);
-            Account account3 = new Account("VIN-003456", LocalDate.now(), 10000);
+            Account account1 = new Account("VIN-001234", LocalDate.now(), 5000, AccountType.CHECKING);
+            Account account2 = new Account("VIN-002345", LocalDate.now().plusDays(1), 7500, AccountType.CHECKING);
+            Account account3 = new Account("VIN-003456", LocalDate.now(), 10000, AccountType.CHECKING);
 
             melba.addAccount(account1);
             melba.addAccount(account2);
@@ -65,9 +64,9 @@ public class HomebankingApplication {
 //            transactionRepository.save(t4);
 //            transactionRepository.save(t5);
 
-            Loan mortgage = new Loan("Mortgage", 500000.0, Set.of(12, 24, 36, 48, 60));
-            Loan personal = new Loan("Personal", 100000.0, Set.of(6, 12, 24));
-            Loan automotive = new Loan("Automotive", 300000.0, Set.of(6, 12, 24, 36));
+            Loan mortgage = new Loan("Mortgage", 500000.0, List.of(12, 24, 36, 48, 60), 1.15f);
+            Loan personal = new Loan("Personal", 100000.0, List.of(6, 12, 24), 1.05f);
+            Loan automotive = new Loan("Automotive", 300000.0, List.of(6, 12, 24, 36), 1.10f);
 
             loanRepository.saveAll(List.of(mortgage, personal, automotive));
 

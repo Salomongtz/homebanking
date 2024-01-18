@@ -40,11 +40,6 @@ public class ClientController {
         return clientService.getAuthenticatedClientDTO(authentication);
     }
 
-    @GetMapping("/current/accounts")
-    public Set<AccountDTO> getAccounts(Authentication authentication) {
-        return accountService.getAccountsDTOFromClient(authentication);
-    }
-
     @PostMapping
     public ResponseEntity<Object> register(
             @RequestParam String firstName, @RequestParam String lastName,

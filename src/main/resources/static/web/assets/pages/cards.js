@@ -48,13 +48,6 @@ createApp({
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios.patch(`/api/clients/current/cards/${id}`)
-                        .then(response => {
-                            console.log(response)
-                            this.loadData()
-                        })
-                        .catch(error => {
-                            console.log(error)
-                        })
                         .then((response) => {
                             console.log(response)
                             Swal.fire({

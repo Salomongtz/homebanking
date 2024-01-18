@@ -18,14 +18,18 @@ public class Account {
     private String number;
     private LocalDate creationDate;
     private double balance;
+    private boolean active=true;
+    @Enumerated(EnumType.STRING)
+    private AccountType type;
 
     public Account() {
     }
 
-    public Account(String number, LocalDate creationDate, double balance) {
+    public Account(String number, LocalDate creationDate, double balance, AccountType type) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
+        this.type = type;
     }
 
     public void addTransaction(Transaction transaction){
@@ -47,10 +51,6 @@ public class Account {
 
     public LocalDate getCreationDate() {
         return creationDate;
-    }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
     }
 
     public double getBalance() {
@@ -75,6 +75,22 @@ public class Account {
 
     public void setTransactions(Set<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public AccountType getType() {
+        return type;
+    }
+
+    public void setType(AccountType type) {
+        this.type = type;
     }
 
     @Override

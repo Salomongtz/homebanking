@@ -105,23 +105,27 @@
             </nav>
         </header>
         <main class="p-4 flex flex-col gap-4 items-center">
-            <h2 class="text-2xl text-center text-white font-bold">Easily make transfers to other Vertex users or your own
+            <h2 class="text-2xl text-center text-white font-bold">Easily make transfers to other Vertex users or your
+                own
                 accounts</h2>
             <form class="max-w-md mx-auto">
 
                 <div id="loanTypeSection" class="mt-4">
                     <label for="loanType" class="block">Loan type:</label>
-                    <select id="loanType" name="loanType"
+                    <select required id="loanType" name="loanType"
                         class="w-full p-2 border border-gray-300 rounded-full px-4 bg-cyan-600" v-model="loanType">
                         <option value="">Select Loan Type</option>
-                        <option v-for="loan in loans" :value="loan">{{loan.name}} Max Amount: ${{loan.maxAmount}}
+                        <option v-for="loan in loans" :value="loan">{{loan.name}} <br> Max Amount:
+                            {{loan.maxAmount.toLocaleString('en-US',{style:'currency', currency:
+                            'USD'})}} <br>
+                            Interest: {{Math.round(loan.interestRate % 1*100)}}%
                         </option>
                     </select>
                 </div>
 
                 <div id="paymentsSection" class="mt-4">
                     <label for="payments" class="block">Payments:</label>
-                    <select id="payments" name="payments"
+                    <select required id="payments" name="payments"
                         class="w-full p-2 border bg-cyan-600 border-gray-300 rounded-full px-4" v-model="payments">
                         <option selected value="1">Select the amount of payments</option>
                         <option v-for="payment in loanType.payments" :value="payment">{{payment}}</option>
@@ -130,26 +134,27 @@
 
                 <div id="destinationAccountSection" class="mt-4">
                     <label for="destinationAccountNumber" class="block">Destination Account:</label>
-                    <select id="destinationAccountNumber" name="destinationAccountNumber"
+                    <select required id="destinationAccountNumber" name="destinationAccountNumber"
                         class="w-full p-2 border border-gray-300 rounded-full px-4 bg-cyan-600"
                         v-model="destinationAccountNumber">
                         <option selected value="">Select Destination Account</option>
                         <option v-for="account in accounts" :value="account.number">{{account.number}}
-                            ${{account.balance}}</option>
+                            {{account.balance.toLocaleString('en-US',{style:'currency', currency:
+                            'USD'})}}</option>
                     </select>
                 </div>
 
                 <div class="mt-4">
                     <label for="amount" class="block">Loan Amount:</label>
-                    <input type="number" :max="loanType.maxAmount" id="amount" name="amount"
+                    <input required type="number" :max="loanType.maxAmount" id="amount" name="amount"
                         class="w-full p-2 border border-gray-300 rounded-full px-4  bg-cyan-600" v-model="amount">
                 </div>
 
                 <div v-show="payments>0&&amount>0" id="interestSection" class="mt-4">
                     <label for="interest" class="block">Each payment will be:</label>
                     <input type="text" id="interest" disabled name="interest"
-                        class="w-full p-2 border border-gray-300 rounded-full px-4  bg-cyan-600"
-                        :value="amount/payments*1.2">
+                        class="w-full p-2 border border-gray-300 rounded-full px-4  bg-cyan-600" :value="((amount*loanType.interestRate)/payments).toLocaleString('en-US',{style:'currency', currency:
+                        'USD'})">
                 </div>
 
                 <button @click.prevent="createLoan" type="submit"

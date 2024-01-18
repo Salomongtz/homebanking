@@ -121,7 +121,7 @@
                     <select id="originAccountNumber"  name="originAccountNumber"
                         class="w-full p-2 border border-gray-300 rounded-full px-4 bg-cyan-600" v-model="originAccountNumber">
                         <option selected value="">Select Origin Account</option>
-                        <option v-for="account in accounts" :value="account.number">{{account.number}} ${{account.balance}}</option>
+                        <option v-for="account in accounts" :value="account.number">{{account.number}} {{account.balance.toLocaleString('en-US',{style:'currency', currency: 'USD'})}}</option>
                     </select>
                     <input v-show="originAccountNumber!=''" class="w-full mt-4 p-2 border border-gray-300 rounded-full px-4  bg-cyan-600" type="text" disabled v-model="originAccountBalance"></input>
                     {{getBalance}}
@@ -133,7 +133,7 @@
                         class="w-full p-2 border border-gray-300 rounded-full px-4 bg-cyan-600"
                         v-model="destinationAccountNumber">
                         <option value="">Select Destination Account</option>
-                        <option v-for="account in accounts" :value="account.number">{{account.number}}</option>
+                        <option v-for="account in accounts" :value="account.number">{{account.number}} {{account.balance.toLocaleString('en-US',{style:'currency', currency: 'USD'})}}</option>
                     </select>
                 </div>
 

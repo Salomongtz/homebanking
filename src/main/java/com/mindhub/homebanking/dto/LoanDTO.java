@@ -2,19 +2,20 @@ package com.mindhub.homebanking.dto;
 
 import com.mindhub.homebanking.models.Loan;
 
-import java.util.Set;
+import java.util.List;
 
 public class LoanDTO {
     private final Long id;
     private final String name;
     private final Double maxAmount;
-    private final Set<Integer> payments;
-
+    private final List<Integer> payments;
+    private final Float interestRate;
     public LoanDTO(Loan loan) {
         this.id = loan.getId();
         this.name = loan.getName();
         this.maxAmount = loan.getMaxAmount();
         this.payments = loan.getPayments();
+        this.interestRate = loan.getInterestRate();
     }
 
     public Long getId() {
@@ -25,11 +26,15 @@ public class LoanDTO {
         return name;
     }
 
-    public Set<Integer> getPayments() {
+    public List<Integer> getPayments() {
         return payments;
     }
 
     public Double getMaxAmount() {
         return maxAmount;
+    }
+
+    public Float getInterestRate() {
+        return interestRate;
     }
 }

@@ -145,7 +145,6 @@ public class CardServiceImplement implements CardService {
         return new CardDTO(getCardByIdAndClientEmail(id, email));
     }
 
-
     @Override
     public void saveToRepository(Card card) {
         cardRepository.save(card);

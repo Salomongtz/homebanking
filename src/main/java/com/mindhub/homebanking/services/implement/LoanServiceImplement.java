@@ -3,6 +3,7 @@ package com.mindhub.homebanking.services.implement;
 import com.mindhub.homebanking.dto.LoanDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.records.LoanApplicationRecord;
+import com.mindhub.homebanking.records.LoanRecord;
 import com.mindhub.homebanking.repositories.*;
 import com.mindhub.homebanking.services.LoanService;
 import com.mindhub.homebanking.services.TransactionService;
@@ -70,9 +71,39 @@ public class LoanServiceImplement implements LoanService {
         }
     }
 
+    @Override
+    public ResponseEntity<String> newLoanType(LoanRecord loanRecord) {
+        Loan loan = loanRepository.findByName(loanRecord.name());
+        if (loan != null) {
+            return new ResponseEntity<>("Loan type already exists", HttpStatus.FORBIDDEN);
+        }
+        if (loanRecord.interestRate() < 0) {
+            return new ResponseEntity<>("Interest rate cannot be negative", HttpStatus.FORBIDDEN);
+        }
+        if (loanRecord.maxAmount() < 0) {
+            return new ResponseEntity<>("Max amount cannot be negative", HttpStatus.FORBIDDEN);
+        }
+        if (loanRecord.payments().isEmpty()) {
+            return new ResponseEntity<>("Payments cannot be negative", HttpStatus.FORBIDDEN);
+        }
+        Loan newLoan = new Loan(loanRecord.name(), loanRecord.maxAmount(), loanRecord.payments(),
+                loanRecord.interestRate());
+        loanRepository.save(newLoan);
+        return new ResponseEntity<>("Loan type created successfully!", HttpStatus.CREATED);
+    }
+
+    public double calculateInterestByPaymentAmount(double interest, int payments) {
+        double aux = interest;
+        for (int i = 0; i < payments / 2; i++) {
+            aux += 0.025;
+        }
+        return aux;
+    }
+
     private void createClientLoan(LoanApplicationRecord loanApplicationRecord, Double amount, Loan loan,
                                   Client client) {
-        ClientLoan loanApplication = new ClientLoan(amount * 1.2, loanApplicationRecord.payments());
+        double interest = calculateInterestByPaymentAmount(loan.getInterestRate(), loanApplicationRecord.payments());
+        ClientLoan loanApplication = new ClientLoan(amount * interest, loanApplicationRecord.payments());
         loan.addClientLoan(loanApplication);
         client.addClientLoans(loanApplication);
         clientLoanRepository.save(loanApplication);

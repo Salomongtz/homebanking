@@ -2,6 +2,7 @@ package com.mindhub.homebanking.services.implement;
 
 import com.mindhub.homebanking.dto.ClientDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
@@ -71,10 +72,9 @@ public class ClientServiceImplement implements ClientService {
         if (BAD_REQUEST != null) return BAD_REQUEST;
 
         Client client = generateClient(firstName, lastName, email, password);
-        Account account = accountService.generateAccount();
-
-        saveToRepository(client);
+        Account account = accountService.generateAccount(AccountType.CHECKING);
         client.addAccount(account);
+        saveToRepository(client);
         accountRepository.save(account);
 
         return new ResponseEntity<>(client + "\nCreated successfully!", HttpStatus.CREATED);
