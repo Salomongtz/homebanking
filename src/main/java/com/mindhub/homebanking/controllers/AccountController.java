@@ -1,12 +1,14 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dto.AccountDTO;
+import com.mindhub.homebanking.dto.ClientLoanDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -42,6 +44,12 @@ public class AccountController {
     @PostMapping("/clients/current/accounts")
     public ResponseEntity<String> createAccount(@RequestParam AccountType type, Authentication authentication) {
         return accountService.createAccount(authentication, type);
+    }
+
+    @PatchMapping("/clients/current/accounts/payLoan")
+    @Transactional
+    public ResponseEntity<String> payLoan(@RequestParam Long id, @RequestParam String accountNumber, Authentication authentication) {
+        return accountService.payLoan(id, accountNumber, authentication);
     }
 
 }

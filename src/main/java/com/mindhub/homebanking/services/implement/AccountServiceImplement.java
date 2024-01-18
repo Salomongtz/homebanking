@@ -1,12 +1,13 @@
 package com.mindhub.homebanking.services.implement;
 
 import com.mindhub.homebanking.dto.AccountDTO;
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.AccountType;
-import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.dto.ClientLoanDTO;
+import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.AccountRepository;
+import com.mindhub.homebanking.repositories.ClientLoanRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
 import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.TransactionService;
 import com.mindhub.homebanking.utils.AccountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,10 @@ public class AccountServiceImplement implements AccountService {
     AccountRepository accountRepository;
     @Autowired
     ClientRepository clientRepository;
+    @Autowired
+    ClientLoanRepository clientLoanRepository;
+    @Autowired
+    TransactionService transactionService;
 
     @Override
     public List<Account> getAllAccounts() {
@@ -133,5 +138,31 @@ public class AccountServiceImplement implements AccountService {
     @Override
     public void saveToRepository(Account account) {
         accountRepository.save(account);
+    }
+
+    @Override
+    public ResponseEntity<String> payLoan(Long id, String accountNumber, Authentication authentication) {
+        ClientLoan clientLoan = clientLoanRepository.findById(id).orElse(null);
+        Account account = accountRepository.findByNumber(accountNumber);
+
+        if (clientLoan == null) {
+            return new ResponseEntity<>("Loan not found", HttpStatus.NOT_FOUND);
+        }
+        if (account == null) {
+            return new ResponseEntity<>("Account not found", HttpStatus.NOT_FOUND);
+        }
+        if (account.getClient().getEmail().equals(authentication.getName()) && !account.isActive()) {
+            return new ResponseEntity<>("Account not active", HttpStatus.FORBIDDEN);
+        }
+        if (account.getBalance() < clientLoan.getAmount()) {
+            return new ResponseEntity<>("Insufficient funds", HttpStatus.FORBIDDEN);
+        }
+        if (clientLoan.getPayments() == 0) {
+            return new ResponseEntity<>("Loan already paid", HttpStatus.FORBIDDEN);
+        }
+        transactionService.createTransaction("Loan payment. "+"Remaining payments: " + (clientLoan.getPayments()-1), -clientLoan.getAmount()/clientLoan.getPayments(), account);
+        clientLoan.setPayments(clientLoan.getPayments() - 1);
+        clientLoan.setAmount(clientLoan.getAmount() - (clientLoan.getAmount() / clientLoan.getPayments()));
+        return ResponseEntity.status(HttpStatus.OK).body("Loan paid successfully" + "Remaining debt: " + clientLoan.getAmount() + "Remaining payments: " + clientLoan.getPayments());
     }
 }

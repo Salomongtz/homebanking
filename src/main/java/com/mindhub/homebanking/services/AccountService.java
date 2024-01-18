@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.services;
 
 import com.mindhub.homebanking.dto.AccountDTO;
+import com.mindhub.homebanking.dto.ClientLoanDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
 import org.springframework.http.ResponseEntity;
@@ -38,4 +39,5 @@ public interface AccountService {
 
     void saveToRepository(Account account);
 
+    ResponseEntity<String> payLoan(Long id, String accountNumber, Authentication authentication);
 }
