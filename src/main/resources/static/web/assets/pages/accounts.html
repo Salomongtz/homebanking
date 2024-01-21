@@ -60,7 +60,7 @@
                         </svg>
                         Cards
                     </a>
-                    <a href="./loan-application.html"
+                    <a href="./loans.html"
                         class="mr-2 mb-2 flex gap-2 items-center hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
                         <svg fill="#FFFFFF" width="24px" height="24px" viewBox="-1 0 19 19"
                             xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg">
@@ -150,7 +150,10 @@
 
             <h2 class="text-3xl text-white font-bold my-8">Your Loans</h2>
 
-            <a class="text-xl text-white text-center font-bold bg-cyan-600 rounded-full px-4 py-2" href="loan-application.html">Apply for loan</a>
+            <div class="flex gap-8">
+                <a class="text-xl text-white text-center font-bold bg-cyan-600 rounded-full px-4 py-2" href="loan-application.html">Apply for loan</a>
+                <a class="text-xl text-white text-center font-bold bg-cyan-600 rounded-full px-4 py-2" href="loans.html">Pay Loans</a>
+            </div>
             <template v-if="client">
                 <template v-if="client.clientLoans.length>0">
                     <div class="flex flex-col w-2/3 justify-center items-center">

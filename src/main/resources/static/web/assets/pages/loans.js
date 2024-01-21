@@ -70,7 +70,7 @@ createApp({
                         .catch(error => {
                             Swal.fire({
                                 title: 'Error!',
-                                text: error.message,
+                                text: error.request.responseText,
                                 icon: 'error',
                                 confirmButtonText: 'Go back'
                             })

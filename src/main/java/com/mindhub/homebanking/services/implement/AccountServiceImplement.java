@@ -154,7 +154,7 @@ public class AccountServiceImplement implements AccountService {
         if (account.getClient().getEmail().equals(authentication.getName()) && !account.isActive()) {
             return new ResponseEntity<>("Account not active", HttpStatus.FORBIDDEN);
         }
-        if (account.getBalance() < clientLoan.getAmount()) {
+        if (account.getBalance() < clientLoan.getAmount()/clientLoan.getPayments()) {
             return new ResponseEntity<>("Insufficient funds", HttpStatus.FORBIDDEN);
         }
         if (clientLoan.getPayments() == 0) {
