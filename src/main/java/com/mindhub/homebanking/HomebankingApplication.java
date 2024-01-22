@@ -28,7 +28,7 @@ public class HomebankingApplication {
         return args -> {
 //            Client melba = new Client("Melba", "Morel", "***REMOVED***",passwordEncoder.encode("***REMOVED***"));
 //            Client salomon = new Client("Salomon", "Gutierrez", "***REMOVED***", passwordEncoder.encode("***REMOVED***"));
-//            Client admin = new Client("David", "Bent", "david@admin.com", passwordEncoder.encode("***REMOVED***"));
+//            Client admin = new Client("Salomon", "Gutierrez", "salomon@admin.com", passwordEncoder.encode("5i9foXAsu2S3JF"));
 //            admin.setRole(RoleType.ADMIN);
 //            clientRepository.save(melba);
 //            clientRepository.save(salomon);

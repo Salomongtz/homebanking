@@ -104,18 +104,9 @@ public class LoanServiceImplement implements LoanService {
         return new ResponseEntity<>("Loan type created successfully!", HttpStatus.CREATED);
     }
 
-    public double calculateInterestByPaymentAmount(double interest, int payments) {
-        double aux = interest;
-        for (int i = 0; i < payments / 2; i++) {
-            aux += 0.025;
-        }
-        return aux;
-    }
-
     private void createClientLoan(LoanApplicationRecord loanApplicationRecord, Double amount, Loan loan,
                                   Client client) {
-        double interest = calculateInterestByPaymentAmount(loan.getInterestRate(), loanApplicationRecord.payments());
-        ClientLoan loanApplication = new ClientLoan(amount * interest, loanApplicationRecord.payments());
+        ClientLoan loanApplication = new ClientLoan(amount*loan.getInterestRate(), loanApplicationRecord.payments());
         loan.addClientLoan(loanApplication);
         client.addClientLoans(loanApplication);
         clientLoanRepository.save(loanApplication);
