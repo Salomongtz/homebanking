@@ -26,8 +26,6 @@ dependencies {
 	implementation 'org.postgresql:postgresql'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.apache.pdfbox:pdfbox:3.0.1'
-	implementation 'com.itextpdf:itextpdf:5.5.13.3'
 
 //	runtimeOnly 'com.h2database:h2'
 }
