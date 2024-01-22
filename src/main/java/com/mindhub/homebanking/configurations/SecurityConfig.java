@@ -22,13 +22,17 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth.requestMatchers("/web/*", "/web/assets" +
                         "/images/**", "/web/assets/styles/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/clients/current/accounts", "/api/transactions", "/api/clients" +
-                        "/current/cards").hasAuthority("CLIENT")
-                .requestMatchers(HttpMethod.GET, "/api/clients/current", "/api/clients/current/*", "/web" +
-                        "/assets/pages/**").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.POST, "/api/clients", "/api/cards/payments").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/clients/current/accounts", "/api/loans", "/api/transactions",
+                        "/api/clients" +
+                                "/current/cards").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.PATCH, "/api/clients/current/cards/*", "/api/clients/current/accounts/*").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.GET, "/api/loans", "/api/clients/current", "/api/clients/current/*",
+                        "/web" +
+                                "/assets/pages/**").hasAuthority("CLIENT")
+                .requestMatchers(HttpMethod.POST, "/api/loans/new").hasAuthority("ADMIN")
                 .requestMatchers(HttpMethod.GET, "/api/clients/", "web/**").hasAuthority("ADMIN")
-                .requestMatchers("/h2-console/**").hasAuthority("ADMIN")
+                .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().denyAll());
 
         http.csrf(AbstractHttpConfigurer::disable);
@@ -54,7 +58,7 @@ public class SecurityConfig {
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()));
 
-        http.exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/web/index.html")));
+        http.exceptionHandling(httpSecurityExceptionHandlingConfigurer -> httpSecurityExceptionHandlingConfigurer.authenticationEntryPoint((request, response, authException) -> response.sendError(401)));
 
         return http.build();
     }

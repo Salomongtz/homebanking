@@ -19,7 +19,7 @@
                     <img class="h-16" src="../images/logo.png" alt="Vertex">
                     <h1 class="text-4xl text-white font-bold">Vertex Vanguard</h1>
                 </div>
-                <div class="mt-4 flex text-xl text-white">
+                <div class="mt-4 flex flex-col md:flex-row text-xl text-white">
                     <a href="./accounts.html"
                         class="mr-2 mb-2 flex gap-2 items-center bg-cyan-600 hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
                         <svg fill="#FFFFFF" height="24px" width="24px" version="1.1" id="Capa_1"
@@ -150,6 +150,10 @@
 
             <h2 class="text-3xl text-white font-bold my-8">Your Loans</h2>
 
+            <div class="flex gap-8">
+                <a class="text-xl text-white text-center font-bold bg-cyan-600 rounded-full px-4 py-2" href="loan-application.html">Apply for loan</a>
+                <a class="text-xl text-white text-center font-bold bg-cyan-600 rounded-full px-4 py-2" href="loans.html">Pay Loans</a>
+            </div>
             <template v-if="client">
                 <template v-if="client.clientLoans.length>0">
                     <div class="flex flex-col w-2/3 justify-center items-center">
@@ -164,7 +168,8 @@
                             <tbody>
                                 <tr v-for="loan in client.clientLoans">
                                     <td>{{ loan.name }}</td>
-                                    <td>{{ loan.amount }}</td>
+                                    <td>{{ loan.amount.toLocaleString('en-US',{style:'currency', currency:
+                                        'USD'}) }}</td>
                                     <td>{{ loan.payments }}</td>
                                 </tr>
                             </tbody>

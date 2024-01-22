@@ -7,6 +7,8 @@
     <link rel="shortcut icon" href="../images/favicon.png" type="image/x-icon">
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 </head>
 
 <body class=" text-white flex flex-col min-h-screen bg-[#21083b]">
@@ -17,7 +19,7 @@
                     <img class="h-16" src="../images/logo.png" alt="Vertex">
                     <h1 class="text-4xl text-white font-bold">Welcome, {{client.firstName}}!</h1>
                 </div>
-                <div class="mt-4 flex text-xl text-white">
+                <div class="mt-4 flex flex-col md:flex-row text-xl text-white">
                     <a href="./accounts.html"
                         class="mr-2 mb-2 flex gap-2 items-center bg-cyan-600 hover:bg-cyan-600  font-bold py-2 px-4 rounded-full">
                         <svg fill="#FFFFFF" height="24px" width="24px" version="1.1" id="Capa_1"
@@ -106,13 +108,14 @@
             <div class="flex flex-col justify-center gap-4">
                 <template v-if="account.balance">
                     <a class="w-full" v-bind:href="'./account.html?id='+account.id">
-                        <div class="bg-cyan-600 rounded-lg text-xl p-4">
+                        <div class="bg-cyan-600 rounded-lg text-xl group p-4">
                             <h3 class="text-lg font-bold mb-2"></h3>
                             <div class="flex flex-col">
                                 <div class="mb-2 flex justify-between">
                                     <span class="font-bold ">Account Number: </span>
                                     <span class=" font-bold">{{account.number}}</span>
                                 </div>
+
                                 <div class="mb-2 flex justify-between">
                                     <span class="font-bold ">Balance: </span>
                                     <span class=" font-bold">{{account.balance.toLocaleString('en-US', {
@@ -126,6 +129,9 @@
                         </div>
                     </a>
                 </template>
+                <button @click="deleteAccount(account.id)" class="border-red-500 border-2 rounded-xl hover:bg-red-500 px-4">
+                    <span class="text-xl font-bold">Delete Account</span>
+                </button>
                 <template v-if="transactions.length>0">
                     <table class="min-w-full text-xl bg-purple-900 rounded-lg font-bold text-white text-center">
                         <thead>
@@ -133,7 +139,8 @@
                                 <th class="rounded-tl-lg py-2 px-4 bg-cyan-600 text-white text-2xl">Type</th>
                                 <th class="py-2 px-4 bg-cyan-600 text-white">Amount</th>
                                 <th class="py-2 px-4 bg-cyan-600 text-white">Date</th>
-                                <th class="rounded-tr-lg py-2 px-4 bg-cyan-600 text-white">Description</th>
+                                <th class="py-2 px-4 bg-cyan-600 text-white">Description</th>
+                                <th class="rounded-tr-lg py-2 px-4 bg-cyan-600 text-white">New Balance</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -149,6 +156,9 @@
                                     format(transaction.amount)}}</td>
                                 <td class="py-2 px-4">{{transaction.date}}</td>
                                 <td class="py-2 px-4">{{transaction.description}}</td>
+                                <td class="py-2 px-4">{{transaction.newBalance.toLocaleString('en-US',{style:'currency',
+                                    currency:
+                                    'USD'})}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -177,6 +187,7 @@
             <a href="https://www.whatsapp.com" target="_blank" rel="noopener noreferrer" class="mr-2">
                 WhatsApp
             </a>
+        </div>
     </footer>
     <script src=" ./account.js">
     </script>

@@ -12,9 +12,12 @@ public class Card {
     @ManyToOne
     private Client client;
     private String number, cvv, cardHolder;
+    @Enumerated(EnumType.STRING)
     private CardType type;
+    @Enumerated(EnumType.STRING)
     private CardColor color;
     private LocalDate fromDate, thruDate;
+    private boolean active = true;
 
     public Card() {
     }
@@ -23,7 +26,7 @@ public class Card {
                 LocalDate fromDate, LocalDate thruDate) {
         this.number = number;
         this.cvv = cvv;
-        this.cardHolder=cardHolder;
+        this.cardHolder = cardHolder;
         this.type = type;
         this.color = color;
         this.fromDate = fromDate;
@@ -96,6 +99,14 @@ public class Card {
 
     public void setCardHolder(String cardHolder) {
         this.cardHolder = cardHolder;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

@@ -2,7 +2,9 @@ package com.mindhub.homebanking.models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -12,18 +14,19 @@ public class Loan {
     private Long id;
 
     @ElementCollection
-    private Set<Integer> payments = new HashSet<>();
+    private List<Integer> payments = new ArrayList<>();
 
     @OneToMany(mappedBy = "loan", fetch = FetchType.EAGER)
-    private Set<ClientLoan> clientLoans = new HashSet<>();
-
+    private final Set<ClientLoan> clientLoans = new HashSet<>();
+    private float interestRate;
     private String name;
-    private Integer maxAmount;
+    private Double maxAmount;
 
-    public Loan(String name, Integer maxAmount, Set<Integer>payments) {
+    public Loan(String name, Double maxAmount, List<Integer>payments, float interestRate) {
         this.name = name;
         this.maxAmount = maxAmount;
         this.payments=payments;
+        this.interestRate = interestRate;
     }
 
     public Loan() {
@@ -37,11 +40,11 @@ public class Loan {
         return id;
     }
 
-    public Set<Integer> getPayments() {
+    public List<Integer> getPayments() {
         return payments;
     }
 
-    public void setPayments(Set<Integer> payments) {
+    public void setPayments(List<Integer> payments) {
         this.payments = payments;
     }
 
@@ -53,12 +56,20 @@ public class Loan {
         this.name = name;
     }
 
-    public Integer getMaxAmount() {
+    public Double getMaxAmount() {
         return maxAmount;
     }
 
-    public void setMaxAmount(Integer maxAmount) {
+    public void setMaxAmount(Double maxAmount) {
         this.maxAmount = maxAmount;
+    }
+
+    public float getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(float interestRate) {
+        this.interestRate = interestRate;
     }
 
     public Set<ClientLoan> getClientLoans() {
