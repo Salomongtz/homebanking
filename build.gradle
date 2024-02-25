@@ -25,6 +25,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.postgresql:postgresql'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 //	runtimeOnly 'com.h2database:h2'
