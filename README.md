@@ -28,7 +28,7 @@ Welcome to the HomeBanking Application! This application provides a secure and u
 
 ## Usage
 
-1. Go to https://vertex-5ys8.onrender.com/web/index.html
+1. Go to https://vertex-homebanking.onrender.com/web/index.html
 2. Create an account or log in with your existing credentials.
 3. Explore the different features available in the application.
 4. Perform transactions, view account details, and manage your finances seamlessly.
